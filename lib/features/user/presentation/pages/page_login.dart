@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:meowdify/core/widgets/general.dart';
+import 'package:meowdify/features/user/data/repositories/impl/flutter_secure_storage_repo_impl.dart';
+import 'package:meowdify/features/user/data/repositories/impl/login_repository_impl.dart';
+import 'package:meowdify/features/user/domain/usecases/login_usecase.dart';
 import 'package:meowdify/features/user/presentation/components/user_backdrop_filter.dart';
-import 'package:meowdify/features/user/presentation/components/user_button_fields.dart';
-import 'package:meowdify/features/user/presentation/components/user_input_fields.dart';
+import 'package:meowdify/features/user/presentation/components/comp_login/user_button_fields.dart';
+import 'package:meowdify/features/user/presentation/components/comp_login/user_input_fields.dart';
 import 'package:meowdify/features/user/presentation/components/user_logo.dart';
+import 'package:meowdify/features/user/presentation/controller/controller_login.dart';
 
 class LoginFrame extends StatelessWidget {
   const LoginFrame({super.key});
@@ -23,6 +28,13 @@ class LoginWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(LoginApiImpl());
+    Get.put(LoginUseCase(Get.find<LoginApiImpl>()));
+    Get.put(LoginController(
+      Get.find<LoginUseCase>(),
+    ));
+    Get.put(SecureStorageRepositoryImpl());
+
     return const Center(
         child: MeoCard(
             width: 550,
@@ -34,7 +46,7 @@ class LoginWidget extends StatelessWidget {
                 children: [
                   MeotifyFrameLogo(),
                   UserInputFields(),
-                  MeotifyFrameButtonGroup()
+                  MeotifyLoginButtonGroup()
                 ])));
   }
 }

@@ -1,11 +1,12 @@
-import 'package:meowdify/features/user/data/repositories/auth_repository.dart';
+import 'package:get/get_connect/http/src/response/response.dart';
+import 'package:meowdify/features/user/data/repositories/login_repository.dart';
 
 class LoginUseCase {
-  final AuthRepository authRepository;
+  final LoginApi loginApi;
 
-  LoginUseCase(this.authRepository);
+  LoginUseCase(this.loginApi);
 
-  Future<bool> execute(String username, String password) {
-    return authRepository.login(username, password);
+  Future<Response> call(String username, String password) {
+    return loginApi.login(username, password);
   }
 }

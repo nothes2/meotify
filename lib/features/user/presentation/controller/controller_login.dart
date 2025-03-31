@@ -1,0 +1,82 @@
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:meowdify/features/user/data/repositories/impl/flutter_secure_storage_repo_impl.dart';
+import 'package:meowdify/features/user/domain/usecases/login_usecase.dart';
+import 'package:meowdify/features/user/presentation/controller/controller_debounce.dart';
+
+class LoginController extends GetxController {
+  final LoginUseCase loginUseCase;
+  final DebounceController debounceController = Get.put(DebounceController());
+  LoginController(this.loginUseCase);
+
+  // Observables
+  var errorMessage = ''.obs;
+  var email = ''.obs;
+  var password = ''.obs;
+
+  var emailError = ''.obs;
+  var passwordError = ''.obs;
+
+  // TextEditingControllers
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  // Validation methods
+  void validateEmail(String value) {
+    email.value = value;
+    emailError.value = value.isEmpty ? "Email cannot be empty" : "";
+  }
+
+  void validatePassword(String value) {
+    password.value = value;
+    passwordError.value = value.isEmpty ? "Password cannot be empty" : "";
+  }
+
+  void onValueChanged(String value, String fieldName) {
+    final validationMap = {
+      'email': validateEmail,
+      'password': validatePassword,
+    };
+
+    final validate = validationMap[fieldName];
+    if (validate != null) {
+      debounceController.debounceInput(value, validate);
+    }
+  }
+
+  bool isButtonDisable() {
+    return (emailError.isEmpty && password.isEmpty);
+  }
+
+  Future<bool> login() async {
+    errorMessage.value = "";
+
+    if (email.value.isEmpty) emailError.value = "Email cannot be empty";
+    if (password.value.isEmpty) {
+      passwordError.value = "Password cannot be empty";
+    }
+
+    if (emailError.isNotEmpty || passwordError.isNotEmpty) return false;
+
+    final response = await loginUseCase(email.value, password.value);
+
+    var data = response.body["data"];
+    var token = data?["token"];
+
+    if (token == null) {
+      errorMessage.value = response.body['message'] ?? 'Login failed';
+      return false;
+    }
+
+    final stroage = Get.find<SecureStorageRepositoryImpl>();
+
+    stroage.saveToken(token);
+    Get.back();
+    Get.snackbar("Login Successful!", "Welcome to meotify!",
+        backgroundColor: Colors.green, colorText: Colors.white);
+    return response.body['success'] ?? false;
+  }
+}

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meowdify/core/bindings/bind_window.dart';
 import 'package:meowdify/core/presentation/widgets/app_bar/core_app_bar.dart';
+import 'package:meowdify/core/presentation/widgets/navigator_bar/core_navigator_bar.dart';
 import 'package:meowdify/core/routes/routes.dart';
 import 'package:meowdify/core/themes/default.dart';
 import 'package:meowdify/core/translations/translations.dart';
@@ -13,23 +14,28 @@ class Meotify extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      initialBinding: WindowBinding(),
       title: "Meotify",
       theme: AppTheme.lightTheme,
       locale: const Locale('zh', 'CN'),
       fallbackLocale: const Locale('en', 'US'),
       translations: MeoTranslations(),
-      initialRoute: AppRoutes.index,
-      initialBinding: WindowBinding(),
+      initialRoute: AppRoutes.home,
       getPages: AppRoutes.pages,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: const AppHeaderBar(),
-        body: Center(
-            child: ElevatedButton(
-                onPressed: () => _showLoginDialog(context),
-                child: const Text("ingore this button w"))),
+        body: Column(
+          children: [
+            const CoreNavigatorBar(),
+            Center(
+                child: ElevatedButton(
+                    onPressed: () => _showLoginDialog(context),
+                    child: const Text("ingore this button w")))
+          ],
+        ),
       ),
     );
   }

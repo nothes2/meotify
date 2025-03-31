@@ -69,33 +69,56 @@ class AppTheme {
 
   static InputDecorationTheme inputDecorationThemes(Brightness brightness) {
     final isDark = brightness == Brightness.dark;
+    final primaryAccent =
+        isDark ? AppColors.darkPrimaryAccent : AppColors.lightPrimaryAccent;
+    final primaryText =
+        isDark ? AppColors.darkPrimaryText : AppColors.lightPrimaryText;
+    final secondaryText =
+        isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText;
+    final fillColor = isDark ? AppColors.darkSurface : Colors.white;
+
     return InputDecorationTheme(
-        filled: true,
-        fillColor: isDark ? AppColors.darkSurface : Colors.white,
-        hintStyle: TextStyle(
-            color: isDark
-                ? AppColors.darkSecondaryText
-                : AppColors.lightSecondaryText),
-        prefixIconColor:
-            isDark ? AppColors.darkPrimaryAccent : AppColors.lightPrimaryAccent,
-        suffixIconColor:
-            isDark ? AppColors.darkPrimaryAccent : AppColors.lightPrimaryAccent,
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: isDark
-                    ? AppColors.darkPrimaryAccent
-                    : AppColors.lightPrimaryAccent,
-                width: 2)),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: isDark
-                    ? AppColors.darkPrimaryAccent
-                    : AppColors.lightPrimaryAccent,
-                width: 1)),
-        labelStyle: TextStyle(
-            color: isDark
-                ? AppColors.darkPrimaryText
-                : AppColors.lightPrimaryText));
+      filled: true,
+      fillColor: fillColor,
+      hintStyle: TextStyle(color: secondaryText),
+      prefixIconColor: primaryAccent,
+      suffixIconColor: primaryAccent,
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: primaryAccent, width: 2),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: primaryAccent, width: 1),
+      ),
+      errorBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.red, width: 2),
+      ),
+      focusedErrorBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.red, width: 2),
+      ),
+      labelStyle: TextStyle(color: primaryText),
+      errorStyle: const TextStyle(color: Colors.red, fontSize: 12),
+      isDense: true,
+      contentPadding:
+          const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
+    );
+  }
+
+  static ButtonStyle buttonDisabledStyle(Brightness brightness) {
+    final isDark = brightness == Brightness.dark;
+    return ElevatedButton.styleFrom(
+      backgroundColor:
+          isDark ? AppColors.darkSurface : Colors.grey, // Disabled color
+      disabledForegroundColor: Colors.grey.withOpacity(0.38),
+      disabledBackgroundColor:
+          Colors.grey.withOpacity(0.12), // Disabled state color for surface
+      textStyle: TextStyle(
+        color: isDark ? AppColors.darkPrimaryText : AppColors.lightPrimaryText,
+      ),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+    );
   }
 
   static TextTheme textThemes(Brightness brightness) {
