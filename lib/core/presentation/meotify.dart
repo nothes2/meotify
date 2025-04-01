@@ -32,10 +32,6 @@ class Meotify extends StatelessWidget {
           children: [
             const CoreNavigatorBar(),
             const MeotifyContent(),
-            Center(
-                child: ElevatedButton(
-                    onPressed: () => _showLoginDialog(context),
-                    child: const Text("ingore this button w")))
           ],
         ),
       ),
@@ -55,8 +51,4 @@ class MeotifyContent extends StatelessWidget {
       ],
     ));
   }
-}
-
-void _showLoginDialog(BuildContext context) {
-  Get.dialog(const LoginFrame());
 }
