@@ -28,7 +28,6 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  animated_svg: ^2.1.0
   flutter:
     sdk: flutter
   flutter_secure_storage: ^9.2.4
@@ -57,7 +56,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/logo_light.svg
-    # Add more assets here
+    - assets/images/icon/ic_user.svg
+    - assets/images/icon/ic_loved.svg
+    - assets/images/icon/ic_folder.svg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

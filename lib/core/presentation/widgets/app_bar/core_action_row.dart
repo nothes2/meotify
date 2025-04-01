@@ -30,7 +30,7 @@ class ActionIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     final WindowController windowController = Get.find();
     return GestureDetector(
-      onTap: () => {windowController.handleWindowAction(action)},
+      onTapDown: (_) => {windowController.handleWindowAction(action)},
       child: Icon(iconData,
           color: Theme.of(context).colorScheme.primary, size: 20),
     );

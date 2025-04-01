@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meowdify/core/bindings/bind_window.dart';
 import 'package:meowdify/core/presentation/widgets/app_bar/core_app_bar.dart';
+import 'package:meowdify/core/presentation/widgets/content/core_lib_list.dart';
 import 'package:meowdify/core/presentation/widgets/navigator_bar/core_navigator_bar.dart';
 import 'package:meowdify/core/routes/routes.dart';
 import 'package:meowdify/core/themes/default.dart';
@@ -30,6 +31,7 @@ class Meotify extends StatelessWidget {
         body: Column(
           children: [
             const CoreNavigatorBar(),
+            const MeotifyContent(),
             Center(
                 child: ElevatedButton(
                     onPressed: () => _showLoginDialog(context),
@@ -38,6 +40,20 @@ class Meotify extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class MeotifyContent extends StatelessWidget {
+  const MeotifyContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        child: Row(
+      children: [
+        Expanded(child: MusicLib()),
+      ],
+    ));
   }
 }
 

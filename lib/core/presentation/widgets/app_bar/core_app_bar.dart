@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:meowdify/core/presentation/controllers/controller_toggle.dart';
+import 'package:meowdify/core/presentation/controllers/controller_window.dart';
 import 'package:meowdify/core/presentation/widgets/app_bar/core_action_row.dart';
 import 'package:meowdify/core/presentation/widgets/app_bar/core_leading.dart';
 import 'package:window_manager/window_manager.dart';
@@ -15,13 +15,10 @@ class AppHeaderBar extends StatelessWidget implements PreferredSizeWidget {
       child: GestureDetector(
           onPanStart: (details) => windowManager.startDragging(),
           onDoubleTap: () {
-            final toggle = Get.find<ToggleController>().toggle;
-            if (toggle.value) {
-              windowManager.maximize();
-            } else {
-              windowManager.restore();
-            }
-            Get.find<ToggleController>().funcToggle();
+            final controller = Get.put(WindowController());
+            controller.isMaxed.value
+                ? {windowManager.restore(), controller.isMaxed.value = false}
+                : {windowManager.maximize(), controller.isMaxed.value = true};
           },
           child: const PrimaryAppBar()),
     );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meowdify/core/widgets/general.dart';
-import 'package:meowdify/features/user/data/repositories/register_repository.dart';
 import 'package:meowdify/features/user/data/repositories/impl/register_repository_impl.dart';
 import 'package:meowdify/features/user/domain/usecases/register_usecase.dart';
 import 'package:meowdify/features/user/presentation/components/comp_register/reg_button_fields.dart';
