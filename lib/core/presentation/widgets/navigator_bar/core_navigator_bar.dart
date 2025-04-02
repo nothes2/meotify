@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:meowdify/core/presentation/controllers/controller_auth.dart';
 import 'package:meowdify/core/widgets/effect.dart';
 
 BoxDecoration coreNaviBoxDoc(BuildContext context) {
@@ -42,33 +44,40 @@ class UserInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authController = Get.find<AuthController>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            SvgPicture.asset(
-              "assets/images/icon/ic_user.svg",
-              height: 40,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            const Text(
-              "Username",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1.1,
+        Obx(() {
+          final user = authController.user;
+          return Row(
+            children: [
+              SvgPicture.asset(
+                user.value?.pfp ?? "assets/images/icon/ic_user.svg",
+                height: 40,
               ),
-            ),
-          ],
-        ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                user.value?.username ?? "Guest",
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.1,
+                ),
+              ),
+            ],
+          );
+        }),
         IconButton.filled(
-            onPressed: () {},
-            icon: Icon(
-              Icons.home,
-              color: Colors.white,
-            ))
+          onPressed: () {
+            Get.toNamed('/home');
+          },
+          icon: const Icon(
+            Icons.home,
+            color: Colors.white,
+          ),
+        )
       ],
     );
   }

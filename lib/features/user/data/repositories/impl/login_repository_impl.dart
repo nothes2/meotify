@@ -14,14 +14,28 @@ class LoginApiImpl extends GetConnect implements LoginApi {
     try {
       final response =
           await post('/login', {'email': email, 'password': password});
-      if (response.isOk) {
-        return response;
-      } else {
-        throw Exception(
-            'Login failed with status: ${response.statusCode}, message: ${response.body["message"]}');
-      }
+      return errorCheck("login", response);
     } catch (e) {
       throw Exception(e);
     }
+  }
+
+  @override
+  Future<Response> loginByToken(String token) async {
+    try {
+      final response = await post('/login_by_token', {'token': token});
+
+      return errorCheck("loginByToken", response);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+}
+
+Response errorCheck(String label, Response response) {
+  if (response.isOk) {
+    return response;
+  } else {
+    throw Exception('Failed to $label: ${response.statusText}');
   }
 }

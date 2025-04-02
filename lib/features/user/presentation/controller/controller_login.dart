@@ -1,9 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:meowdify/features/user/data/repositories/impl/flutter_secure_storage_repo_impl.dart';
+import 'package:meowdify/core/utilities/flutter_secure_storage_repo_impl.dart';
 import 'package:meowdify/features/user/domain/usecases/login_usecase.dart';
 import 'package:meowdify/features/user/presentation/controller/controller_debounce.dart';
 
@@ -23,7 +22,6 @@ class LoginController extends GetxController {
   // TextEditingControllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
   // Validation methods
   void validateEmail(String value) {
     email.value = value;
@@ -73,10 +71,28 @@ class LoginController extends GetxController {
 
     final stroage = Get.find<SecureStorageRepositoryImpl>();
 
-    stroage.saveToken(token);
+    stroage.saveData("jwt_token", token);
     Get.back();
     Get.snackbar("Login Successful!", "Welcome to meotify!",
         backgroundColor: Colors.green, colorText: Colors.white);
     return response.body['success'] ?? false;
+  }
+
+  Future<bool> loginByToken() async {
+    final storage = Get.find<SecureStorageRepositoryImpl>();
+    final token = await storage.getData("jwt_token");
+    if (token == null) {
+      throw Exception("No Token available!");
+    }
+
+    final response = await loginUseCase.loginByToken(token);
+    if (response.body['data'] == null) {
+      return false;
+    }
+
+    Map<String, dynamic> data = response.body['data']['user'];
+    print("bodydata: ${response.body['data']['user']}");
+    await storage.saveData("user", jsonEncode(data));
+    return true;
   }
 }

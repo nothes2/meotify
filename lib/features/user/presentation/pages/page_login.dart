@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meowdify/core/widgets/general.dart';
-import 'package:meowdify/features/user/data/repositories/impl/flutter_secure_storage_repo_impl.dart';
+import 'package:meowdify/core/utilities/flutter_secure_storage_repo_impl.dart';
 import 'package:meowdify/features/user/data/repositories/impl/login_repository_impl.dart';
 import 'package:meowdify/features/user/domain/usecases/login_usecase.dart';
 import 'package:meowdify/features/user/presentation/components/user_backdrop_filter.dart';

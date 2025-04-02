@@ -9,4 +9,8 @@ class LoginUseCase {
   Future<Response> call(String username, String password) {
     return loginApi.login(username, password);
   }
+
+  Future<Response> loginByToken(String token) {
+    return loginApi.loginByToken(token);
+  }
 }
