@@ -46,7 +46,11 @@ class LoginController extends GetxController {
   }
 
   bool isButtonDisable() {
-    return (emailError.isEmpty && password.isEmpty);
+    if (emailError.isEmpty && passwordError.isEmpty) {
+      return false;
+    }
+
+    return true;
   }
 
   Future<bool> login() async {

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:meowdify/core/bindings/bind_window.dart';
 import 'package:meowdify/core/presentation/controllers/controller_auth.dart';
 import 'package:meowdify/core/presentation/widgets/app_bar/core_app_bar.dart';
-import 'package:meowdify/core/presentation/widgets/content/core_lib_list.dart';
 import 'package:meowdify/core/presentation/widgets/navigator_bar/core_navigator_bar.dart';
 import 'package:meowdify/core/routes/routes.dart';
 import 'package:meowdify/core/themes/default.dart';
@@ -50,41 +49,19 @@ class Meotify extends StatelessWidget {
               }
             });
           }
-// TODO show username and user icon after login
-          return const Scaffold(
-            appBar: AppHeaderBar(),
-            body: Column(
-              children: [
-                CoreNavigatorBar(),
-                MeotifyContent(),
-              ],
-            ),
-          );
+
+          // TODO finish the route logic
+          return Scaffold(
+              appBar: const AppHeaderBar(),
+              body: Column(
+                children: [
+                  const CoreNavigatorBar(),
+                  GetRouterOutlet(
+                    anchorRoute: AppRoutes.index,
+                    initialRoute: AppRoutes.home,
+                  )
+                ],
+              ));
         }));
-  }
-}
-
-class MeotifyContent extends StatelessWidget {
-  const MeotifyContent({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Expanded(
-        child: Row(
-      children: [
-        Expanded(
-          child: MusicLib(),
-          flex: 1,
-        ),
-        Expanded(
-          child: Placeholder(),
-          flex: 3,
-        ),
-        Expanded(
-          child: Placeholder(),
-          flex: 1,
-        ),
-      ],
-    ));
   }
 }

@@ -5,6 +5,7 @@ import 'package:meowdify/core/widgets/effect.dart';
 class MusicLib extends StatelessWidget {
   const MusicLib({super.key});
 
+// TODO GET PLAYLIST FROM BACKEND
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,7 +20,8 @@ class MusicLib extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               itemCount: 10, // Replace with the actual number of items
               itemBuilder: (context, index) {
-                return ListTile(
+                return Material(
+                    child: ListTile(
                   leading: SvgPicture.asset(
                     'assets/images/icon/ic_loved.svg',
                     height: 48,
@@ -30,7 +32,7 @@ class MusicLib extends StatelessWidget {
                   onTap: () {
                     // Handle item tap
                   },
-                );
+                ));
               },
             ),
           )),

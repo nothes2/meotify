@@ -1,9 +1,8 @@
-import 'dart:ffi';
-
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:meowdify/features/user/domain/usecases/register_usecase.dart';
 import 'package:meowdify/features/user/presentation/controller/controller_debounce.dart';
+import 'package:meowdify/features/user/presentation/pages/page_login.dart';
 
 class RegisterController extends GetxController {
   var errorMessage = "".obs;
@@ -11,7 +10,7 @@ class RegisterController extends GetxController {
   var email = "".obs;
   var password = "".obs;
   var confirmPassword = "".obs;
-  var disable = true.obs;
+  RxBool disable = true.obs;
 
   var usernameError = "".obs;
   var emailError = "".obs;
@@ -30,7 +29,7 @@ class RegisterController extends GetxController {
   void validateUsername(String value) async {
     username.value = value;
     usernameError.value = "";
-
+    isButtonEanbled();
     if (value.isEmpty) {
       usernameError.value = "Username cannot be empty!";
       return;
@@ -44,6 +43,7 @@ class RegisterController extends GetxController {
       if (response.body != null && response.body['success'] == false) {
         usernameError.value = "Username has already been used!";
       }
+      isButtonEanbled();
     } catch (e) {
       usernameError.value = "An error occurred while checking the username!";
     }
@@ -55,11 +55,13 @@ class RegisterController extends GetxController {
 
     if (value.isEmpty) {
       emailError.value = "Email cannot be empty!";
+      isButtonEanbled();
       return;
     }
 
     if (!isValidEmail(value)) {
       emailError.value = "Invalid email format!";
+      isButtonEanbled();
       return;
     }
 
@@ -68,6 +70,7 @@ class RegisterController extends GetxController {
       if (response.body != null && response.body['success'] == false) {
         emailError.value = "Email is already in use!";
       }
+      isButtonEanbled();
     } catch (e) {
       emailError.value = "An error occurred while checking the email!";
     }
@@ -83,6 +86,7 @@ class RegisterController extends GetxController {
             : (value.length < 6)
                 ? "Password must be at least 6 characters long!"
                 : "";
+    isButtonEanbled();
   }
 
   void validateConfirmPassword(String value) {
@@ -90,6 +94,7 @@ class RegisterController extends GetxController {
     confirmPassword.value = "";
     confirmPasswordError.value =
         value != password.value ? "Passwords do not match!" : "";
+    isButtonEanbled();
   }
 
   void onValueChanged(String value, String fieldName) {
@@ -107,10 +112,14 @@ class RegisterController extends GetxController {
   }
 
   isButtonEanbled() {
-    disable.value = !(usernameError.isEmpty &&
-        emailError.isEmpty &&
-        passwordError.isEmpty &&
-        confirmPasswordError.isEmpty);
+    if (usernameError.isNotEmpty ||
+        emailError.isNotEmpty ||
+        passwordError.isNotEmpty ||
+        confirmPasswordError.isNotEmpty) {
+      disable.value = true;
+    } else {
+      disable.value = false;
+    }
 
     return disable;
   }
@@ -130,7 +139,7 @@ class RegisterController extends GetxController {
     emailController.clear();
     passwordController.clear();
     confirmPasswordController.clear();
-
+    isButtonEanbled();
     disable.value = true;
   }
 
@@ -147,6 +156,8 @@ class RegisterController extends GetxController {
         clearForm();
         Get.snackbar("Success", "Registration successful!",
             snackPosition: SnackPosition.BOTTOM);
+        Get.back();
+        Get.dialog(const LoginFrame());
       } else {
         errorMessage.value =
             response.body?['message'] ?? "Registration failed!";
