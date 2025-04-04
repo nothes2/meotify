@@ -8,6 +8,7 @@ import 'package:meowdify/core/routes/routes.dart';
 import 'package:meowdify/core/themes/default.dart';
 import 'package:meowdify/core/translations/translations.dart';
 import 'package:meowdify/core/utilities/flutter_secure_storage_repo_impl.dart';
+import 'package:meowdify/features/player/presentation/pages/player.dart';
 import 'package:meowdify/features/user/data/repositories/impl/login_repository_impl.dart';
 import 'package:meowdify/features/user/domain/usecases/login_usecase.dart';
 import 'package:meowdify/features/user/presentation/controller/controller_login.dart';
@@ -31,7 +32,7 @@ class Meotify extends StatelessWidget {
         locale: const Locale('zh', 'CN'),
         fallbackLocale: const Locale('en', 'US'),
         translations: MeoTranslations(),
-        initialRoute: AppRoutes.home,
+        initialRoute: AppRoutes.index,
         getPages: AppRoutes.pages,
         darkTheme: AppTheme.darkTheme,
         themeMode: ThemeMode.system,
@@ -50,16 +51,17 @@ class Meotify extends StatelessWidget {
             });
           }
 
-          // TODO finish the route logic
           return Scaffold(
               appBar: const AppHeaderBar(),
               body: Column(
                 children: [
                   const CoreNavigatorBar(),
-                  GetRouterOutlet(
+                  Expanded(
+                      child: GetRouterOutlet(
                     anchorRoute: AppRoutes.index,
                     initialRoute: AppRoutes.home,
-                  )
+                  )),
+                  const SizedBox(height: 100, child: MeoPlayer())
                 ],
               ));
         }));

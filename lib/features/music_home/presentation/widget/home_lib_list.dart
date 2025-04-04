@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:meowdify/core/widgets/effect.dart';
+import 'package:meowdify/core/widgets/general.dart';
 
 class MusicLib extends StatelessWidget {
   const MusicLib({super.key});
@@ -8,11 +9,11 @@ class MusicLib extends StatelessWidget {
 // TODO GET PLAYLIST FROM BACKEND
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Container(
-          decoration: BoxDecoration(
-              color: Colors.white, boxShadow: cardShadow(context)),
+    return MeoCard(
+        padding: 10,
+        radius: 5,
+        child: Padding(
+          padding: const EdgeInsets.all(10),
           child: ScrollConfiguration(
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -20,8 +21,7 @@ class MusicLib extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               itemCount: 10, // Replace with the actual number of items
               itemBuilder: (context, index) {
-                return Material(
-                    child: ListTile(
+                return ListTile(
                   leading: SvgPicture.asset(
                     'assets/images/icon/ic_loved.svg',
                     height: 48,
@@ -32,10 +32,10 @@ class MusicLib extends StatelessWidget {
                   onTap: () {
                     // Handle item tap
                   },
-                ));
+                );
               },
             ),
-          )),
-    );
+          ),
+        ));
   }
 }
