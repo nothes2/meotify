@@ -8,24 +8,27 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Expanded(
-          flex: 1,
-          child: MusicLib(),
-        ),
-        Expanded(
-          flex: 3,
-          child: GetRouterOutlet(
-            anchorRoute: AppRoutes.home,
-            initialRoute: AppRoutes.content,
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Row(
+        children: [
+          const Expanded(
+            flex: 1,
+            child: MusicLib(),
           ),
-        ),
-        const Expanded(
-          flex: 1,
-          child: Placeholder(), // TODO: Replace with detail card
-        ),
-      ],
+          Expanded(
+            flex: 3,
+            child: GetRouterOutlet(
+              anchorRoute: AppRoutes.home,
+              initialRoute: AppRoutes.content,
+            ),
+          ),
+          const Expanded(
+            flex: 1,
+            child: Placeholder(), // TODO: Replace with detail card
+          ),
+        ],
+      ),
     );
   }
 }

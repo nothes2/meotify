@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:get/get.dart';
 import 'package:meowdify/core/domain/entities/en_user.dart';
