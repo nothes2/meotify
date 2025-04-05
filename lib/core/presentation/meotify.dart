@@ -57,11 +57,15 @@ class Meotify extends StatelessWidget {
                 children: [
                   const CoreNavigatorBar(),
                   Expanded(
+                      flex: 5,
                       child: GetRouterOutlet(
-                    anchorRoute: AppRoutes.index,
-                    initialRoute: AppRoutes.home,
-                  )),
-                  const SizedBox(height: 100, child: MeoPlayer())
+                        anchorRoute: AppRoutes.index,
+                        initialRoute: AppRoutes.home,
+                      )),
+                  const Expanded(
+                    flex: 1,
+                    child: MeoPlayer(),
+                  )
                 ],
               ));
         }));

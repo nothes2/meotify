@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:meowdify/core/widgets/effect.dart';
 import 'package:meowdify/core/widgets/general.dart';
 
 class MusicLib extends StatelessWidget {

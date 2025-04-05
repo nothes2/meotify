@@ -1,42 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:meowdify/core/widgets/effect.dart';
+import 'package:meowdify/core/utilities/general.dart';
 import 'package:meowdify/core/widgets/general.dart';
-import 'package:shimmer/shimmer.dart';
 
 class MetaInfo extends StatelessWidget {
   const MetaInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MeoCard(
-        padding: 10,
-        radius: 5,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              children: [
-                Shimmer.fromColors(
-                  baseColor: Colors.grey[300]!,
-                  highlightColor: Colors.grey[100]!,
-                  child: Container(
-                    width: 56.0,
-                    height: 56.0,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                const Expanded(child: MetaText())
-                // Image.asset(
-                //   "",
-                //   height: 48,
-                // ),
-              ],
-            ),
-          ],
-        ));
+    return const MeoCard(
+      padding: 10,
+      radius: 5,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            children: [
+              MeoShimmer(hight: 50, width: 50),
+              SizedBox(
+                width: 8,
+              ),
+              Expanded(child: MetaText())
+              // Image.asset(
+              //   "",
+              //   height: 48,
+              // ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
 
