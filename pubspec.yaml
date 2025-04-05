@@ -37,6 +37,7 @@ dependencies:
   http: ^1.3.0
   just_audio: ^0.9.46
   jwt_decoder: ^2.0.1
+  shimmer: ^3.0.0
   window_manager: ^0.4.3
 
 dev_dependencies:
@@ -60,6 +61,9 @@ flutter:
     - assets/images/icon/ic_user.svg
     - assets/images/icon/ic_loved.svg
     - assets/images/icon/ic_folder.svg
+    - assets/images/icon/btn_next.svg
+    - assets/images/icon/btn_play.svg
+    - assets/images/icon/btn_pre.svg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

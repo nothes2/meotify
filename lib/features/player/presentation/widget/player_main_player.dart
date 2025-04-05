@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:meowdify/core/widgets/general.dart';
 
 class MainPlayer extends StatelessWidget {
@@ -6,7 +7,7 @@ class MainPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MeoCard(
+    return const MeoCard(
       padding: 10,
       radius: 5,
       child: Column(
@@ -23,20 +24,23 @@ class MainButtonGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Row(
+      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
-          Icons.abc,
-          size: 12,
+        SvgPicture.asset(
+          "assets/images/icon/btn_pre.svg",
+          height: 24,
         ),
-        Icon(
-          Icons.abc,
-          size: 24,
+        SizedBox(width: 8),
+        SvgPicture.asset(
+          "assets/images/icon/btn_play.svg",
+          height: 48,
         ),
-        Icon(
-          Icons.abc,
-          size: 12,
-        )
+        SizedBox(width: 8),
+        SvgPicture.asset(
+          "assets/images/icon/btn_next.svg",
+          height: 24,
+        ),
       ],
     ));
   }
@@ -47,18 +51,23 @@ class ProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("0"),
-          const SizedBox(
-            height: 50,
-            child: Placeholder(),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("00:00"),
+        SizedBox(width: 8),
+        Container(
+          width: 550,
+          child: LinearProgressIndicator(
+            value: 0.6,
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            valueColor: AlwaysStoppedAnimation<Color>(
+                Theme.of(context).colorScheme.primary),
           ),
-          Text("1")
-        ],
-      ),
+        ),
+        SizedBox(width: 8),
+        Text("10:00")
+      ],
     );
   }
 }

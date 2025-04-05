@@ -6,7 +6,7 @@ class PlaylistBtnGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MeoCard(
+    return const MeoCard(
       padding: 10,
       radius: 5,
       child: Column(

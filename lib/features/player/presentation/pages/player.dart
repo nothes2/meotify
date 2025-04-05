@@ -12,9 +12,9 @@ class MeoPlayer extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(flex: 1, child: MetaInfo()),
-        Spacer(),
-        Expanded(flex: 4, child: MainPlayer()),
-        Spacer(),
+        SizedBox(width: 10),
+        Expanded(flex: 3, child: MainPlayer()),
+        SizedBox(width: 10),
         Expanded(flex: 1, child: PlaylistBtnGroup())
       ],
     );
