@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:meowdify/core/routes/routes.dart';
+import 'package:meowdify/core/utilities/navigator_key.dart';
 import 'package:meowdify/features/music_home/presentation/widget/home_content.dart';
 import 'package:meowdify/features/music_home/presentation/widget/home_detail.dart';
 import 'package:meowdify/features/music_home/presentation/widget/home_lib_list.dart';
+import 'package:meowdify/features/user/presentation/pages/pages_profile.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<NavigatorState> second = GlobalKey();
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Row(
@@ -22,13 +23,16 @@ class Home extends StatelessWidget {
             flex: 3,
             child: Navigator(
               initialRoute: AppRoutes.content,
-              key: second,
+              key: child,
               onGenerateRoute: (settings) {
                 switch (settings.name) {
                   case AppRoutes.content:
                     return MaterialPageRoute(
                       builder: (context) => const HomeContent(),
                     );
+                  case AppRoutes.profile:
+                    return MaterialPageRoute(
+                        builder: (context) => const ProfilePage());
                   default:
                     return MaterialPageRoute(
                       builder: (context) =>

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import 'package:meowdify/core/presentation/meotify.dart';
 import 'package:window_manager/window_manager.dart';

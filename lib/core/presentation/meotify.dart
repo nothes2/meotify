@@ -8,6 +8,7 @@ import 'package:meowdify/core/routes/routes.dart';
 import 'package:meowdify/core/themes/default.dart';
 import 'package:meowdify/core/translations/translations.dart';
 import 'package:meowdify/core/utilities/flutter_secure_storage_repo_impl.dart';
+import 'package:meowdify/core/utilities/navigator_key.dart';
 import 'package:meowdify/features/music_home/presentation/pages/home.dart';
 import 'package:meowdify/features/player/presentation/pages/player.dart';
 import 'package:meowdify/features/user/data/repositories/impl/login_repository_impl.dart';
@@ -25,7 +26,6 @@ class Meotify extends StatelessWidget {
     Get.put(LoginApiImpl());
     Get.put(LoginUseCase(Get.find<LoginApiImpl>()));
     Get.put(LoginController(Get.find()));
-    final GlobalKey<NavigatorState> father = GlobalKey();
 
     return GetMaterialApp(
         initialBinding: WindowBinding(),

@@ -4,7 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:meowdify/core/presentation/controllers/controller_auth.dart';
 import 'package:meowdify/core/routes/routes.dart';
+import 'package:meowdify/core/utilities/navigator_key.dart';
 import 'package:meowdify/core/widgets/effect.dart';
+import 'package:meowdify/features/user/presentation/pages/pages_profile.dart';
 
 BoxDecoration coreNaviBoxDoc(BuildContext context) {
   return BoxDecoration(
@@ -15,7 +17,6 @@ BoxDecoration coreNaviBoxDoc(BuildContext context) {
 
 class CoreNavigatorBar extends StatelessWidget {
   const CoreNavigatorBar({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -33,7 +34,12 @@ class CoreNavigatorBar extends StatelessWidget {
                         flex: 1,
                         child: GestureDetector(
                           child: UserInfo(),
-                          onTap: () => {Get.toNamed(AppRoutes.profile)},
+                          onTap: () => {
+                            child.currentState?.push(
+                              MaterialPageRoute(
+                                  builder: (_) => const ProfilePage()),
+                            )
+                          },
                         )),
                     SizedBox(width: 10),
                     Expanded(flex: 3, child: MeotifySearchBar()),
@@ -51,8 +57,6 @@ class UserInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<NavigatorState> nestedNavigatorKey =
-        GlobalKey<NavigatorState>();
     final authController = Get.find<AuthController>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -80,7 +84,7 @@ class UserInfo extends StatelessWidget {
         }),
         IconButton.filled(
           onPressed: () {
-            nestedNavigatorKey.currentState?.pushNamed("/content");
+            child.currentState?.pushNamed("/content");
           },
           icon: const Icon(
             Icons.home,
