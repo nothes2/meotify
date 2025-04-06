@@ -121,15 +121,16 @@ class MeotifyTools extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        IconButton.outlined(onPressed: () {}, icon: Icon(Icons.notifications)),
+        IconButton.outlined(
+            onPressed: () {}, icon: const Icon(Icons.notifications)),
         const SizedBox(
           width: 10,
         ),
-        IconButton.outlined(onPressed: () {}, icon: Icon(Icons.email)),
+        IconButton.outlined(onPressed: () {}, icon: const Icon(Icons.email)),
         const SizedBox(
           width: 10,
         ),
-        IconButton.outlined(onPressed: () {}, icon: Icon(Icons.settings)),
+        IconButton.outlined(onPressed: () {}, icon: const Icon(Icons.settings)),
       ],
     );
   }

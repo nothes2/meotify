@@ -21,8 +21,8 @@ class AppRoutes {
         GetPage(
             name: dashboard,
             page: () => const CreatorDashboard(),
-            children: []),
-        GetPage(name: home, page: () => const Home(), children: []),
+            children: const []),
+        GetPage(name: home, page: () => const Home(), children: const []),
         GetPage(name: content, page: () => const HomeContent())
       ];
 }

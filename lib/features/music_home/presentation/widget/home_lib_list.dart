@@ -14,12 +14,15 @@ class MusicLib extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 5, left: 10),
+              padding: const EdgeInsets.only(top: 5, left: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Your library", style: TextStyle(fontSize: 16)),
-                  TextButton(onPressed: () {}, child: const Text("aa")),
+                  const Text("Your library", style: TextStyle(fontSize: 16)),
+                  TextButton.icon(
+                      onPressed: () {},
+                      label: const Text("aa"),
+                      icon: Icon(Icons.abc)),
                 ],
               ),
             ),

@@ -31,12 +31,12 @@ class MainButtonGroup extends StatelessWidget {
           "assets/images/icon/btn_pre.svg",
           height: 24,
         ),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
         SvgPicture.asset(
           "assets/images/icon/btn_play.svg",
           height: 48,
         ),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
         SvgPicture.asset(
           "assets/images/icon/btn_next.svg",
           height: 24,
@@ -54,9 +54,9 @@ class ProgressBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("00:00"),
-        SizedBox(width: 8),
-        Container(
+        const Text("00:00"),
+        const SizedBox(width: 8),
+        SizedBox(
           width: 550,
           child: LinearProgressIndicator(
             value: 0.6,
@@ -65,8 +65,8 @@ class ProgressBar extends StatelessWidget {
                 Theme.of(context).colorScheme.primary),
           ),
         ),
-        SizedBox(width: 8),
-        Text("10:00")
+        const SizedBox(width: 8),
+        const Text("10:00")
       ],
     );
   }

@@ -43,7 +43,7 @@ class MetaText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(
+          const Text(
             "Title",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
@@ -56,7 +56,7 @@ class MetaText extends StatelessWidget {
                 label: const Icon(Icons.add)),
           )
         ]),
-        Text(
+        const Text(
           "info",
           style: TextStyle(fontSize: 12),
         ),

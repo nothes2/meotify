@@ -21,13 +21,13 @@ class ContentPromotion extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
+              const Column(
                 children: [
-                  const Text(
+                  Text(
                     "title",
                     style: TextStyle(fontSize: 24),
                   ),
-                  const Text("info"),
+                  Text("info"),
                 ],
               ),
               TextButton(

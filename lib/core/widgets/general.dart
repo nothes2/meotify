@@ -4,6 +4,7 @@ import 'package:meowdify/core/widgets/effect.dart';
 class MeoCard extends StatelessWidget {
   final double? height;
   final double? width;
+  final Color? color;
   final double padding;
   final double radius;
   final Widget child;
@@ -11,6 +12,7 @@ class MeoCard extends StatelessWidget {
       {super.key,
       this.height,
       this.width,
+      this.color,
       required this.padding,
       required this.child,
       required this.radius});
@@ -24,7 +26,7 @@ class MeoCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius),
         boxShadow: cardShadow(context),
-        color: Colors.white,
+        color: color ?? Colors.white,
       ),
       child: child,
     );
