@@ -10,40 +10,28 @@ class AppRoutes {
   static const index = "/";
   static const dashboard = "/dashboard";
   static const home = "/home";
-  static const content = "/home/content";
-  static const profile = "/home/profile";
+  static const content = "/content";
+  static const profile = "/profile";
 
 // todo content creator dashboard
   static List<GetPage> get pages => [
         GetPage(
-          name: index,
-          page: () => const Meotify(),
-          binding: WindowBinding(),
-          participatesInRootNavigator: true,
-          preventDuplicates: true,
+            name: index, page: () => const Meotify(), binding: WindowBinding()),
+        GetPage(
+          name: dashboard,
+          page: () => const CreatorDashboard(),
         ),
         GetPage(
-            name: dashboard,
-            page: () => const CreatorDashboard(),
-            participatesInRootNavigator: true,
-            preventDuplicates: true,
-            children: const []),
+          name: home,
+          page: () => const Home(),
+        ),
         GetPage(
-            name: home,
-            page: () => const Home(),
-            participatesInRootNavigator: true,
-            preventDuplicates: true,
-            children: [
-              GetPage(
-                name: content,
-                page: () => const HomeContent(),
-                preventDuplicates: true,
-              ),
-              GetPage(
-                name: profile,
-                page: () => const ProfilePage(),
-                preventDuplicates: true,
-              )
-            ]),
+          name: content,
+          page: () => const HomeContent(),
+        ),
+        GetPage(
+          name: profile,
+          page: () => const ProfilePage(),
+        )
       ];
 }

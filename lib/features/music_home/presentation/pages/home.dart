@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:meowdify/core/routes/routes.dart';
 import 'package:meowdify/features/music_home/presentation/widget/home_content.dart';
 import 'package:meowdify/features/music_home/presentation/widget/home_detail.dart';
@@ -24,12 +23,17 @@ class Home extends StatelessWidget {
             child: Navigator(
               initialRoute: AppRoutes.content,
               key: second,
-              // TODO fix this route
               onGenerateRoute: (settings) {
                 switch (settings.name) {
                   case AppRoutes.content:
-                    const HomeContent();
-                    break;
+                    return MaterialPageRoute(
+                      builder: (context) => const HomeContent(),
+                    );
+                  default:
+                    return MaterialPageRoute(
+                      builder: (context) =>
+                          const HomeContent(), // Fallback to HomeContent
+                    );
                 }
               },
             ),

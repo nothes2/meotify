@@ -51,6 +51,8 @@ class UserInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<NavigatorState> nestedNavigatorKey =
+        GlobalKey<NavigatorState>();
     final authController = Get.find<AuthController>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,7 +80,7 @@ class UserInfo extends StatelessWidget {
         }),
         IconButton.filled(
           onPressed: () {
-            Get.toNamed('/home');
+            nestedNavigatorKey.currentState?.pushNamed("/content");
           },
           icon: const Icon(
             Icons.home,
