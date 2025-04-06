@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:meowdify/core/presentation/controllers/controller_auth.dart';
+import 'package:meowdify/core/routes/routes.dart';
 import 'package:meowdify/core/widgets/effect.dart';
 
 BoxDecoration coreNaviBoxDoc(BuildContext context) {
@@ -21,13 +23,18 @@ class CoreNavigatorBar extends StatelessWidget {
         child: Container(
             height: 60,
             decoration: coreNaviBoxDoc(context),
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(10),
               child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Expanded(flex: 1, child: UserInfo()),
+                    Expanded(
+                        flex: 1,
+                        child: GestureDetector(
+                          child: UserInfo(),
+                          onTap: () => {Get.toNamed(AppRoutes.profile)},
+                        )),
                     SizedBox(width: 10),
                     Expanded(flex: 3, child: MeotifySearchBar()),
                     SizedBox(

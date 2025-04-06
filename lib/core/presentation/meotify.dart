@@ -8,6 +8,7 @@ import 'package:meowdify/core/routes/routes.dart';
 import 'package:meowdify/core/themes/default.dart';
 import 'package:meowdify/core/translations/translations.dart';
 import 'package:meowdify/core/utilities/flutter_secure_storage_repo_impl.dart';
+import 'package:meowdify/features/music_home/presentation/pages/home.dart';
 import 'package:meowdify/features/player/presentation/pages/player.dart';
 import 'package:meowdify/features/user/data/repositories/impl/login_repository_impl.dart';
 import 'package:meowdify/features/user/domain/usecases/login_usecase.dart';
@@ -24,6 +25,7 @@ class Meotify extends StatelessWidget {
     Get.put(LoginApiImpl());
     Get.put(LoginUseCase(Get.find<LoginApiImpl>()));
     Get.put(LoginController(Get.find()));
+    final GlobalKey<NavigatorState> father = GlobalKey();
 
     return GetMaterialApp(
         initialBinding: WindowBinding(),
@@ -57,11 +59,24 @@ class Meotify extends StatelessWidget {
                 children: [
                   const CoreNavigatorBar(),
                   Expanded(
-                      flex: 5,
-                      child: GetRouterOutlet(
-                        anchorRoute: AppRoutes.index,
-                        initialRoute: AppRoutes.home,
-                      )),
+                    flex: 5,
+                    child: Navigator(
+                      initialRoute: AppRoutes.home,
+                      onGenerateRoute: ((settings) {
+                        switch (settings.name) {
+                          case AppRoutes.home:
+                            return MaterialPageRoute(
+                                builder: (_) => const Home());
+                            break;
+                          case AppRoutes.dashboard:
+                            break;
+                          default:
+                        }
+                        return null;
+                      }),
+                      key: father,
+                    ),
+                  ),
                   const Expanded(
                     flex: 1,
                     child: MeoPlayer(),

@@ -35,7 +35,7 @@ class MusicLib extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return ListTile(
                       leading: SvgPicture.asset(
-                        'assets/images/icon /ic_loved.svg',
+                        'assets/images/icon/ic_loved.svg',
                         height: 48,
                         width: 48,
                       ),
