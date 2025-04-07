@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:meowdify/core/widgets/effect.dart';
 
@@ -31,4 +33,9 @@ class MeoCard extends StatelessWidget {
       child: child,
     );
   }
+}
+
+double generateNumber() {
+  final random = Random();
+  return random.nextInt(101).toDouble();
 }

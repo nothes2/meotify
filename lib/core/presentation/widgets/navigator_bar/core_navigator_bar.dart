@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:meowdify/core/presentation/controllers/controller_auth.dart';
@@ -35,7 +34,7 @@ class CoreNavigatorBar extends StatelessWidget {
                         child: GestureDetector(
                           child: UserInfo(),
                           onTap: () => {
-                            child.currentState?.push(
+                            home.currentState?.push(
                               MaterialPageRoute(
                                   builder: (_) => const ProfilePage()),
                             )
@@ -84,7 +83,7 @@ class UserInfo extends StatelessWidget {
         }),
         IconButton.filled(
           onPressed: () {
-            child.currentState?.pushNamed("/content");
+            father.currentState?.pushReplacementNamed(AppRoutes.home);
           },
           icon: const Icon(
             Icons.home,
@@ -134,6 +133,14 @@ class MeotifyTools extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
+        IconButton.outlined(
+            onPressed: () {
+              father.currentState?.pushReplacementNamed(AppRoutes.dashboard);
+            },
+            icon: const Icon(Icons.create)),
+        const SizedBox(
+          width: 10,
+        ),
         IconButton.outlined(
             onPressed: () {}, icon: const Icon(Icons.notifications)),
         const SizedBox(

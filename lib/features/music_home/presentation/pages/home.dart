@@ -19,11 +19,14 @@ class Home extends StatelessWidget {
             flex: 1,
             child: MusicLib(),
           ),
+          SizedBox(
+            width: 10,
+          ),
           Expanded(
             flex: 3,
             child: Navigator(
               initialRoute: AppRoutes.content,
-              key: child,
+              key: home,
               onGenerateRoute: (settings) {
                 switch (settings.name) {
                   case AppRoutes.content:
@@ -35,12 +38,14 @@ class Home extends StatelessWidget {
                         builder: (context) => const ProfilePage());
                   default:
                     return MaterialPageRoute(
-                      builder: (context) =>
-                          const HomeContent(), // Fallback to HomeContent
+                      builder: (context) => const HomeContent(),
                     );
                 }
               },
             ),
+          ),
+          SizedBox(
+            width: 10,
           ),
           const Expanded(
             flex: 1,

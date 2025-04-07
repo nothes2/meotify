@@ -31,7 +31,7 @@ class ContentRecommendation extends StatelessWidget {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
             children: [
               ...recommendations.map((item) => RecommendationCard(
                     title: item["title"]!,

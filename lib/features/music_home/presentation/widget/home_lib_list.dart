@@ -21,8 +21,8 @@ class MusicLib extends StatelessWidget {
                   const Text("Your library", style: TextStyle(fontSize: 16)),
                   TextButton.icon(
                       onPressed: () {},
-                      label: const Text("aa"),
-                      icon: Icon(Icons.abc)),
+                      label: const Text("ADD"),
+                      icon: const Icon(Icons.add)),
                 ],
               ),
             ),
