@@ -24,7 +24,7 @@ class CoreNavigatorBar extends StatelessWidget {
             height: 60,
             decoration: coreNaviBoxDoc(context),
             child: Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -32,7 +32,7 @@ class CoreNavigatorBar extends StatelessWidget {
                     Expanded(
                         flex: 1,
                         child: GestureDetector(
-                          child: UserInfo(),
+                          child: const UserInfo(),
                           onTap: () => {
                             home.currentState?.push(
                               MaterialPageRoute(
@@ -40,12 +40,12 @@ class CoreNavigatorBar extends StatelessWidget {
                             )
                           },
                         )),
-                    SizedBox(width: 10),
-                    Expanded(flex: 3, child: MeotifySearchBar()),
-                    SizedBox(
+                    const SizedBox(width: 10),
+                    const Expanded(flex: 3, child: MeotifySearchBar()),
+                    const SizedBox(
                       width: 10,
                     ),
-                    Expanded(flex: 1, child: MeotifyTools())
+                    const Expanded(flex: 1, child: MeotifyTools())
                   ]),
             )));
   }

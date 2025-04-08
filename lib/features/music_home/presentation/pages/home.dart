@@ -19,7 +19,7 @@ class Home extends StatelessWidget {
             flex: 1,
             child: MusicLib(),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Expanded(
@@ -44,7 +44,7 @@ class Home extends StatelessWidget {
               },
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           const Expanded(

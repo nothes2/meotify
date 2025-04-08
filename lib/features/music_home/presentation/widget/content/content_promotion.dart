@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:meowdify/core/utilities/general.dart';
 
 class ContentPromotion extends StatelessWidget {

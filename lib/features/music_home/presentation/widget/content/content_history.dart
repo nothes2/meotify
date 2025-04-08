@@ -12,8 +12,8 @@ class ContentHistory extends StatelessWidget {
       children: [
         Row(
           children: [
-            TextButton(onPressed: () {}, child: Text("ALL")),
-            TextButton(onPressed: () {}, child: Text("A WEEK AGO")),
+            TextButton(onPressed: () {}, child: const Text("ALL")),
+            TextButton(onPressed: () {}, child: const Text("A WEEK AGO")),
           ],
         ),
         Wrap(
@@ -43,18 +43,18 @@ class HistoryItem extends StatelessWidget {
         padding: 0,
         radius: 5,
         color: Theme.of(context).colorScheme.surface,
-        child: Row(
+        child: const Row(
           children: [
-            const MeoShimmer(
+            MeoShimmer(
               hight: 40,
               width: 40,
             ),
-            const SizedBox(width: 2),
+            SizedBox(width: 2),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
                     "Title",
                     style: TextStyle(fontWeight: FontWeight.bold),

@@ -4,6 +4,8 @@ import 'package:meowdify/core/routes/routes.dart';
 import 'package:meowdify/core/utilities/navigator_key.dart';
 import 'package:meowdify/core/widgets/general.dart';
 import 'package:meowdify/features/music_creator/presentation/controller/creator_select_menu_controller.dart';
+import 'package:meowdify/features/music_creator/presentation/widget/music/music_management.dart';
+import 'package:meowdify/features/music_creator/presentation/widget/music/music_upload.dart';
 import 'package:meowdify/features/music_creator/presentation/widget/overview.dart';
 
 class CreatorDashboard extends StatelessWidget {
@@ -65,7 +67,20 @@ class CreatorMenu extends StatelessWidget {
                       child: ListTile(
                         title: Text(subItem),
                         onTap: () {
-                          // TODO switch page here
+                          switch (subItem) {
+                            case "Overview":
+                              creator.currentState
+                                  ?.pushReplacementNamed(AppRoutes.overview);
+                              break;
+                            case "Management":
+                              creator.currentState?.pushReplacementNamed(
+                                  AppRoutes.musicManagement);
+                            case "Upload":
+                              creator.currentState
+                                  ?.pushReplacementNamed(AppRoutes.musicupload);
+                              break;
+                            default:
+                          }
                         },
                       ),
                     )),
@@ -88,9 +103,13 @@ class CreatorContent extends StatelessWidget {
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case AppRoutes.overview:
-            return MaterialPageRoute(builder: (_) => Overview());
+            return MaterialPageRoute(builder: (_) => const Overview());
+          case AppRoutes.musicupload:
+            return MaterialPageRoute(builder: (_) => const MusicUpload());
+          case AppRoutes.musicManagement:
+            return MaterialPageRoute(builder: (_) => const MusicManagement());
           default:
-            return MaterialPageRoute(builder: (_) => Overview());
+            return MaterialPageRoute(builder: (_) => const Overview());
         }
       },
     );

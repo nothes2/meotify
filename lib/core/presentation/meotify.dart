@@ -36,7 +36,6 @@ class Meotify extends StatelessWidget {
       fallbackLocale: const Locale('en', 'US'),
       translations: MeoTranslations(),
       initialRoute: AppRoutes.index,
-      getPages: AppRoutes.pages,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,

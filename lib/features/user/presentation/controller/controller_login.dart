@@ -76,6 +76,8 @@ class LoginController extends GetxController {
     final stroage = Get.find<SecureStorageRepositoryImpl>();
 
     stroage.saveData("jwt_token", token);
+    Map<String, dynamic> userData = response.body['data']['user'];
+    await stroage.saveData("user", jsonEncode(userData));
     Get.back();
     Get.snackbar("Login Successful!", "Welcome to meotify!",
         backgroundColor: Colors.green, colorText: Colors.white);
@@ -86,7 +88,7 @@ class LoginController extends GetxController {
     final storage = Get.find<SecureStorageRepositoryImpl>();
     final token = await storage.getData("jwt_token");
     if (token == null) {
-      throw Exception("No Token available!");
+      return false;
     }
 
     final response = await loginUseCase.loginByToken(token);
@@ -95,7 +97,6 @@ class LoginController extends GetxController {
     }
 
     Map<String, dynamic> data = response.body['data']['user'];
-    print("bodydata: ${response.body['data']['user']}");
     await storage.saveData("user", jsonEncode(data));
     return true;
   }

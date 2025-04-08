@@ -42,12 +42,12 @@ class TotalData extends StatelessWidget {
                 "Total listener",
                 style: TextStyle(fontSize: 16),
               ),
-              const SizedBox(height: 4),
+              SizedBox(height: 4),
               Text("13.4k"),
             ],
           ),
         )),
-        const SizedBox(width: 10),
+        SizedBox(width: 10),
         Expanded(
             child: MeoCard(
           padding: 10,
@@ -59,12 +59,12 @@ class TotalData extends StatelessWidget {
                 "Total Listen amount",
                 style: TextStyle(fontSize: 16),
               ),
-              const SizedBox(height: 4),
+              SizedBox(height: 4),
               Text("13.4k"),
             ],
           ),
         )),
-        const SizedBox(width: 10),
+        SizedBox(width: 10),
         Expanded(
             child: MeoCard(
           padding: 10,
@@ -76,7 +76,7 @@ class TotalData extends StatelessWidget {
                 "Total follow amount",
                 style: TextStyle(fontSize: 16),
               ),
-              const SizedBox(height: 4),
+              SizedBox(height: 4),
               Text("13.4k"),
             ],
           ),
@@ -174,7 +174,7 @@ class MonthlyToggleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final OverviewController controller = Get.find<OverviewController>();
+    final OverviewController controller = Get.put(OverviewController());
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

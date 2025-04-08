@@ -1,5 +1,3 @@
-import 'package:get/get.dart';
-
 class AppRoutes {
   static const index = "/";
 
@@ -9,29 +7,6 @@ class AppRoutes {
 
   static const dashboard = "/dashboard";
   static const overview = "/overview";
-
-  static List<GetPage> get pages => [
-        // GetPage(
-        //     name: index, page: () => const Meotify(), binding: WindowBinding()),
-        // GetPage(
-        //   name: dashboard,
-        //   page: () => const CreatorDashboard(),
-        // ),
-        // GetPage(
-        //   name: home,
-        //   page: () => const Home(),
-        // ),
-        // GetPage(
-        //   name: content,
-        //   page: () => const HomeContent(),
-        // ),
-        // GetPage(
-        //   name: profile,
-        //   page: () => const ProfilePage(),
-        // ),
-        // GetPage(
-        //   name: overview,
-        //   page: () => const Overview(),
-        // )
-      ];
+  static const musicupload = "/music_upload";
+  static const musicManagement = "/music_management";
 }

@@ -22,10 +22,10 @@ class ContentRecommendation extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           "Good {TIME}, It's {DATE}, Let's Listen some music!",
           textAlign: TextAlign.start,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
         ),
         const SizedBox(height: 8),
         SingleChildScrollView(

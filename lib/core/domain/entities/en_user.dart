@@ -43,7 +43,7 @@ class User {
           : null,
       pfp: json['pfp'] as String?,
       bio: json['bio'] as String?,
-      id: json['id'] as String?,
+      id: json['_id'] as String?,
     );
   }
 
@@ -56,7 +56,7 @@ class User {
       'updatedAt': updatedAt?.toIso8601String(),
       'pfp': pfp,
       'bio': bio,
-      'id': id,
+      '_id': id,
     };
   }
 }

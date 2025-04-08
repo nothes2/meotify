@@ -23,6 +23,7 @@ class LoginApiImpl extends GetConnect implements LoginApi {
   @override
   Future<Response> loginByToken(String token) async {
     try {
+      print("logining by token");
       final response = await post('/login_by_token', {'token': token});
 
       return errorCheck("loginByToken", response);
