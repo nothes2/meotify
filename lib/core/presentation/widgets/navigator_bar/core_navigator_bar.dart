@@ -133,25 +133,47 @@ class MeotifyTools extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        IconButton.outlined(
-            onPressed: () {
-              father.currentState?.pushReplacementNamed(AppRoutes.dashboard);
-            },
-            icon: const Icon(Icons.create)),
+        MeoIconButton(
+          iconData: Icons.dashboard,
+          callback: () {},
+        ),
         const SizedBox(
           width: 10,
         ),
-        IconButton.outlined(
-            onPressed: () {}, icon: const Icon(Icons.notifications)),
+        MeoIconButton(
+          iconData: Icons.create,
+          callback: () {
+            father.currentState?.pushReplacementNamed(AppRoutes.dashboard);
+          },
+        ),
         const SizedBox(
           width: 10,
         ),
-        IconButton.outlined(onPressed: () {}, icon: const Icon(Icons.email)),
-        const SizedBox(
-          width: 10,
+        MeoIconButton(
+          iconData: Icons.settings,
+          callback: () {},
         ),
-        IconButton.outlined(onPressed: () {}, icon: const Icon(Icons.settings)),
       ],
+    );
+  }
+}
+
+class MeoIconButton extends StatelessWidget {
+  final IconData iconData;
+  final VoidCallback callback;
+  const MeoIconButton(
+      {super.key, required this.iconData, required this.callback});
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton.outlined(
+      onPressed: callback,
+      icon: Icon(iconData, color: Theme.of(context).colorScheme.primary),
+      style: ButtonStyle(
+        side: WidgetStateProperty.all(
+          BorderSide(color: Theme.of(context).colorScheme.secondary),
+        ),
+      ),
     );
   }
 }

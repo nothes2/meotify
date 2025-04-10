@@ -11,12 +11,12 @@ class MusicUploadRepoImpl extends GetConnect implements MusicUpload {
   void onInit() {
     httpClient.baseUrl = 'http://127.0.0.1:3000';
     Get.put(SecureStorageRepositoryImpl());
-    httpClient.timeout = const Duration(seconds: 10);
+    httpClient.timeout = const Duration(seconds: 30);
     super.onInit();
   }
 
   @override
-  Future<bool> uploadMusic(File file) async {
+  Future<Response?> uploadMusic(File file) async {
     final storage = Get.find<SecureStorageRepositoryImpl>();
     final userData = await storage.getData("user");
     final user = User.fromJson(jsonDecode(userData));
@@ -28,12 +28,11 @@ class MusicUploadRepoImpl extends GetConnect implements MusicUpload {
       });
 
       final response = await post('http://127.0.0.1:3000/upload', formData);
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        return true;
-      } else {
-        return false;
+
+      if (response.statusCode != 200) {
+        return null;
       }
+      return response;
     } catch (e) {
       throw Exception(e);
     }

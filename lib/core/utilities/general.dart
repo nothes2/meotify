@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -21,12 +19,12 @@ class MeoShimmer extends StatelessWidget {
   }
 }
 
-Future<PlatformFile> pickSingleFile() async {
-  final result = await FilePicker.platform.pickFiles();
+Future<PlatformFile?> pickSingleFile(FileType type) async {
+  final result = await FilePicker.platform.pickFiles(type: type);
 
   if (result != null && result.files.isNotEmpty) {
     return result.files.first;
   }
 
-  return PlatformFile(name: "empty", size: 0);
+  return null;
 }

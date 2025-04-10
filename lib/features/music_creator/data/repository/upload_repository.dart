@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:get/get.dart';
+
 abstract class MusicUpload {
-  Future<bool> uploadMusic(File file);
+  Future<Response?> uploadMusic(File file);
 }
