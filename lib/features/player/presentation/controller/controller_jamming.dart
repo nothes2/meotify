@@ -1,3 +1,6 @@
+import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
+
 class JammingController extends GetxController {
   final player = AudioPlayer();
   RxBool isPlaying = false.obs;
