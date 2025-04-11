@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:meowdify/core/widgets/general.dart';
-
+import 'package:meowdify/features/player/presentation/controller/controller_music_player.dart';
 class MainPlayer extends StatelessWidget {
-  const MainPlayer({super.key});
+  final AudioController controller;
+  const MainPlayer({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {

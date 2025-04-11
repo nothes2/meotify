@@ -1,7 +1,7 @@
 import 'package:get/get_navigation/src/root/internacionalization.dart';
 
 import 'package:meowdify/core/translations/en_US.dart';
-import 'package:meowdify/core/translations/zh_cn.dart';
+import 'package:meowdify/core/translations/zh_CN.dart';
 
 class MeoTranslations extends Translations {
   @override

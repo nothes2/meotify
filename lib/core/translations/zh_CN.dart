@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 const Map<String, String> zhCN = {
   'SIGN IN': "登 录",
   'Email Address': "邮箱地址",

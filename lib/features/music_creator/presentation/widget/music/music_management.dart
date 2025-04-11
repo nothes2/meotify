@@ -8,3 +8,19 @@ class MusicManagement extends StatelessWidget {
     return const Center(child: CircularProgressIndicator());
   }
 }
+
+
+class MyTrackList extends StatelessWidget {
+  const MyTrackList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: [],
+        )
+      ],
+    );
+  }
+}

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:meowdify/core/utilities/general.dart';
 import 'package:meowdify/core/widgets/general.dart';
+import 'package:meowdify/features/player/presentation/controller/controller_music_player.dart';
 
 class MetaInfo extends StatelessWidget {
-  const MetaInfo({super.key});
+  final AudioController controller;
+  const MetaInfo({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {

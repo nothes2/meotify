@@ -18,5 +18,3 @@ void main() async {
 
   runApp(const Meotify());
 }
-
-// TODO route exception 
