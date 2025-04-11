@@ -52,22 +52,61 @@ Widget _listBuilder(LibController controller) {
   return ListView.builder(
     itemCount: controller.lib.value.length,
     itemBuilder: (context, index) {
-      return ListTile(
-        leading: controller.lib.value[index].playlist?.image != null &&
-                controller.lib.value[index].playlist!.image!.isNotEmpty
-            ? Image.network(
-                "${header}${controller.lib.value[index].playlist!.image}")
-            : SvgPicture.asset(
-                "assets/images/icon/ic_loved.svg",
-                height: 48,
-                width: 48,
-              ),
-        title: Text(controller.lib.value[index].playlist?.name ?? "not found"),
-        subtitle: Text(controller.lib.value[index].playlist?.type ?? "no type"),
-        onTap: () {},
+      return GestureDetector(
+        child: ListTile(
+          leading: controller.lib.value[index].playlist?.image != null &&
+                  controller.lib.value[index].playlist!.image!.isNotEmpty
+              ? Image.network(Uri.encodeFull(
+                  "${header}${controller.lib.value[index].playlist!.image}"))
+              : SvgPicture.asset(
+                  "assets/images/icon/ic_loved.svg",
+                  height: 48,
+                  width: 48,
+                ),
+          title:
+              Text(controller.lib.value[index].playlist?.name ?? "not found"),
+          subtitle:
+              Text(controller.lib.value[index].playlist?.type ?? "no type"),
+          onTap: () {},
+        ),
+        onSecondaryTapDown: (TapDownDetails details) {
+          _showMenu(context, details.globalPosition, controller, index);
+        },
       );
     },
   );
+}
+
+void _showMenu(BuildContext context, Offset position, LibController controller,
+    int index) {
+  final overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
+  final offset = overlay.globalToLocal(position);
+  showMenu(
+    context: context,
+    position: RelativeRect.fromLTRB(
+      offset.dx,
+      offset.dy,
+      offset.dx,
+      offset.dy,
+    ),
+    items: [
+      PopupMenuItem(
+        value: 'edit',
+        child: const Text('Edit'),
+      ),
+      PopupMenuItem(
+        value: 'delete',
+        child: const Text('Delete'),
+      ),
+    ],
+  ).then((value) {
+    if (value == 'edit') {
+      debugPrint(
+          'Edit selected for index $index ${controller.lib.value[index].playlist?.name}');
+    } else if (value == 'delete') {
+      debugPrint('Delete selected for index $index');
+    }
+  });
 }
 
 Widget _dialog(LibController controller) {

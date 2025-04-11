@@ -1,5 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MeoShimmer extends StatelessWidget {
@@ -27,4 +28,12 @@ Future<PlatformFile?> pickSingleFile(FileType type) async {
   }
 
   return null;
+}
+
+Response errorCheck(String label, Response response) {
+  if (response.isOk) {
+    return response;
+  } else {
+    throw Exception('Failed to $label: ${response.statusText}');
+  }
 }

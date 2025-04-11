@@ -11,10 +11,12 @@ class SingleInput extends StatelessWidget {
   final void Function(String, String) onValueChanged;
   final String fieldName;
   final String errorText;
+  bool? enabled;
 
   final DebounceController debounceController = Get.put(DebounceController());
   SingleInput({
     super.key,
+    this.enabled,
     this.controller,
     required this.keyboardType,
     required this.label,
@@ -36,6 +38,7 @@ class SingleInput extends StatelessWidget {
             errorText: errorText.isEmpty ? null : errorText,
             prefixIcon: Icon(prefixIcon),
             suffixIcon: Icon(suffixIcon)),
+        enabled: enabled ?? true,
         onChanged: (value) {
           debounceController.debounceInput(value, (value) {
             onValueChanged(value, fieldName);

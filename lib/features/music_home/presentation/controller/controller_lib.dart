@@ -69,7 +69,6 @@ class LibController extends GetxController {
     final response = await libRepo.uploadAlbumCover(File(file.path!));
 
     final data = response.body['data']["tempId"];
-    print(data);
     tempId.value = data;
   }
 
@@ -121,7 +120,6 @@ class LibController extends GetxController {
       return;
     }
 
-    print(data);
     var playlistData = data[0];
 
     lib.value = (playlistData as List<dynamic>)
