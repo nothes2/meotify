@@ -11,7 +11,6 @@ import 'package:meowdify/features/music_creator/presentation/widget/overview.dar
 class CreatorDashboard extends StatelessWidget {
   const CreatorDashboard({super.key});
 
-// TODO finish this next
   @override
   Widget build(BuildContext context) {
     return const Row(children: [

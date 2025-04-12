@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -10,11 +11,11 @@ import 'package:meowdify/core/utilities/general.dart';
 import 'package:meowdify/features/music_creator/data/repository/repo_upload_impl.dart';
 import 'package:meowdify/features/user/presentation/controller/controller_debounce.dart';
 
-// TODO finish the upload feature
 class UploadController extends GetxController {
   var isUploading = false.obs;
   var success = false.obs;
   var tempPath = "".obs;
+  var publishSuccess = false.obs;
 
   var trackInfo = Rxn<TrackInfo>();
   final musicUploadRepo = MusicUploadRepoImpl();
@@ -46,7 +47,7 @@ class UploadController extends GetxController {
 
   String? validateTitle(String value) {
     if (value.isEmpty) {
-      titleErrorText.value = "Title cannot be empty";
+      titleErrorText.value = "Title cannot be empty".tr;
       return titleErrorText.value;
     }
     titleErrorText.value = null;
@@ -56,7 +57,7 @@ class UploadController extends GetxController {
 
   String? validateArtist(String value) {
     if (value.isEmpty) {
-      artistErrorText.value = "Artist cannot be empty";
+      artistErrorText.value = "Artist cannot be empty".tr;
       return artistErrorText.value;
     }
     artistErrorText.value = null;
@@ -66,7 +67,7 @@ class UploadController extends GetxController {
 
   String? validateGenre(String value) {
     if (value.isEmpty) {
-      genreErrorText.value = "Genre cannot be empty";
+      genreErrorText.value = "Genre cannot be empty".tr;
       return genreErrorText.value;
     }
     genreErrorText.value = null;
@@ -75,10 +76,6 @@ class UploadController extends GetxController {
   }
 
   String? validateUploader(String value) {
-    if (value.isEmpty) {
-      uploaderErrorText.value = "Uploader cannot be empty";
-      return uploaderErrorText.value;
-    }
     uploaderErrorText.value = null;
     trackInfo.value =
         (trackInfo.value ?? TrackInfo()).copyWith(uploaderId: value);
@@ -93,7 +90,7 @@ class UploadController extends GetxController {
 
     if (result == null && result?.files == null || result!.files.isEmpty) {
       isUploading.value = false;
-      Get.snackbar("info", "no file selected.");
+      Get.snackbar("Info".tr, "No file selected.".tr);
       return;
     }
 
@@ -102,14 +99,14 @@ class UploadController extends GetxController {
     var response = await musicUploadRepo.uploadMusic(pickedFile);
 
     if (response == null) {
-      Get.snackbar("error", "music upload filed!");
+      Get.snackbar("Error".tr, "File upload filed!".tr);
       isUploading.value = false;
       success.value = false;
       return;
     }
 
     if (response.statusCode == 408) {
-      Get.snackbar("error", "file upload timeout!");
+      Get.snackbar("Error".tr, "File upload timeout!".tr);
       success.value = false;
       isUploading.value = false;
       return;
@@ -128,14 +125,13 @@ class UploadController extends GetxController {
             : <String, dynamic>{};
 
     if (body.isEmpty) {
-      Get.snackbar("error", "cant find data");
+      Get.snackbar("Error".tr, "Cannot find data".tr);
       success.value = false;
       isUploading.value = false;
       return;
     }
 
     final track = TrackInfo.fromJson(body);
-    print("track id in music_upload_controller.dart:140: ${track.id}");
     final artist = track.artist;
     uploaderId.value = track.uploaderId ?? "";
     final uploader = await findUserById(track.uploaderId);
@@ -189,18 +185,16 @@ class UploadController extends GetxController {
         titleController.text.isEmpty ||
         genreController.text.isEmpty ||
         uploaderController.text.isEmpty) {
-      Get.snackbar("error", "you have to fill all blanks!");
+      Get.snackbar("Error".tr, "You have to fill all the blanks!".tr);
       return;
     }
 
     if (trackInfo.value == null ||
         uploaderId.isEmpty ||
         trackInfo.value?.url == null) {
-      Get.snackbar("error", "internal server error");
+      Get.snackbar("Error".tr, "Internal server error");
       return;
     }
-
-    print(trackInfo.value!.id);
 
     http.Response? response = await musicUploadRepo.publish(
         tempPath.value,
@@ -213,10 +207,11 @@ class UploadController extends GetxController {
     final Map<String, dynamic> body = jsonDecode(response!.body);
 
     if (body["success"] == true) {
-      Get.snackbar("success!", "you published a track!");
+      Get.snackbar("Success".tr, "You published a track!", overlayColor: Colors.green);
+      publishSuccess.value = true;
       return;
     }
 
-    Get.snackbar("error", "upload failed! Internal Server error");
+    Get.snackbar("Error".tr, "upload failed! Internal Server error");
   }
 }

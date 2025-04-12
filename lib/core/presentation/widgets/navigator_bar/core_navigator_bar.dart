@@ -72,7 +72,7 @@ class UserInfo extends StatelessWidget {
                 width: 10,
               ),
               Text(
-                user.value?.username ?? "Guest",
+                user.value?.username ?? "Guest".tr,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1.1,

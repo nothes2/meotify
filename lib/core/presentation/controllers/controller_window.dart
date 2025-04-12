@@ -25,7 +25,6 @@ class WindowController extends GetxController {
           isMaxed.value = true;
         }
         break;
-      default:
     }
   }
 }

@@ -45,7 +45,6 @@ class AudioController extends GetxController {
         seconds: value.toInt())); // Convert value to duration in seconds
   }
 
-  // Setup audio player listeners for position and duration changes
   void _setupAudioPlayer() {
     audioPlayer.onPositionChanged.listen((position) {
       if (!isDragging.value) {
@@ -61,13 +60,11 @@ class AudioController extends GetxController {
     audioPlayer.setVolume(volume.value); // Set initial volume
   }
 
-  // Set the volume of the audio player
   void setVolume(double volume) {
-    this.volume.value = volume.clamp(0.0, 1.0); // Clamp volume between 0 and 1
+    this.volume.value = volume.clamp(0.0, 1.0); 
     audioPlayer.setVolume(this.volume.value);
   }
 
-  // Seek to a specific position in the audio
   void seekTo(Duration position) {
     audioPlayer.seek(position);
   }
@@ -77,13 +74,11 @@ class AudioController extends GetxController {
     if (isPlaying.value) {
       await audioPlayer.pause();
     } else {
-      // Wait for the audio to initialize before playing
       await audioPlayer.play(UrlSource(link));
-      // Initialize totalDuration after the track starts
       audioPlayer.onDurationChanged.listen((duration) {
         if (totalDuration.value == Duration.zero) {
           totalDuration.value =
-              duration; // Set the duration only the first time
+              duration;
         }
       });
     }

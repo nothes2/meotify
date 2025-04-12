@@ -20,9 +20,10 @@ class MusicUpload extends StatelessWidget {
       return SingleChildScrollView(
         child: Column(children: [
           _buildHeader(controller),
-          // TODO when controller.success is true, show the meta_data edit panel
           const SizedBox(height: 20),
-          _buildPanel(controller)
+           controller.publishSuccess.value ?  Center(child: Column(children: [
+            Icon(Icons.publish, color: Theme.of(context).colorScheme.primary,),
+            const Text("upload success!")],)) : _buildPanel(controller)
         ]),
       );
     });
