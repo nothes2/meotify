@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:meowdify/core/constants/general.dart';
+import 'package:meowdify/core/routes/routes.dart';
 import 'package:meowdify/core/utilities/general.dart';
+import 'package:meowdify/core/utilities/navigator_key.dart';
 import 'package:meowdify/core/widgets/general.dart';
 import 'package:meowdify/features/music_home/presentation/controller/controller_lib.dart';
 import 'package:meowdify/features/user/presentation/components/single_input.dart';
@@ -56,8 +58,13 @@ Widget _listBuilder(LibController controller) {
         child: ListTile(
           leading: controller.lib.value[index].playlist?.image != null &&
                   controller.lib.value[index].playlist!.image!.isNotEmpty
-              ? Image.network(Uri.encodeFull(
-                  "${header}${controller.lib.value[index].playlist!.image}"))
+              ? Image.network(
+                  Uri.encodeFull(
+                      "$header${controller.lib.value[index].playlist!.image}"),
+                  height: 48,
+                  width: 48,
+                  fit: BoxFit.cover,
+                )
               : SvgPicture.asset(
                   "assets/images/icon/ic_loved.svg",
                   height: 48,
@@ -67,7 +74,11 @@ Widget _listBuilder(LibController controller) {
               Text(controller.lib.value[index].playlist?.name ?? "not found"),
           subtitle:
               Text(controller.lib.value[index].playlist?.type ?? "no type"),
-          onTap: () {},
+          onTap: () {
+            print(controller.lib.value[index].playlist?.toJson());
+            home.currentState?.pushReplacementNamed(
+                "${AppRoutes.playlist}${controller.lib.value[index].playlist?.id}");
+          },
         ),
         onSecondaryTapDown: (TapDownDetails details) {
           _showMenu(context, details.globalPosition, controller, index);
@@ -90,13 +101,13 @@ void _showMenu(BuildContext context, Offset position, LibController controller,
       offset.dy,
     ),
     items: [
-      PopupMenuItem(
+      const PopupMenuItem(
         value: 'edit',
-        child: const Text('Edit'),
+        child: Text('Edit'),
       ),
-      PopupMenuItem(
+      const PopupMenuItem(
         value: 'delete',
-        child: const Text('Delete'),
+        child: Text('Delete'),
       ),
     ],
   ).then((value) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:meowdify/core/widgets/general.dart';
 import 'package:meowdify/features/player/presentation/controller/controller_music_player.dart';
 
@@ -13,7 +14,12 @@ class PlaylistBtnGroup extends StatelessWidget {
       padding: 10,
       radius: 5,
       child: Column(
-        children: [ListButtonGroup(controller: controller), QueueInfo(controller: controller,)],
+        children: [
+          ListButtonGroup(controller: controller),
+          QueueInfo(
+            controller: controller,
+          )
+        ],
       ),
     );
   }
@@ -28,14 +34,13 @@ class ListButtonGroup extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-
         // TODO show queue panel
         SvgPicture.asset(
           'assets/images/icon/btn_queue.svg',
           height: 28,
         ),
         const SizedBox(width: 4),
-        
+
         // TODO 3 status type,
         SvgPicture.asset(
           'assets/images/icon/btn_loop.svg',
@@ -46,16 +51,22 @@ class ListButtonGroup extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-
               // switch to mute and normal
               SvgPicture.asset(
                 'assets/images/icon/btn_volume.svg',
                 height: 28,
+                width: 28,
               ),
 
-              // TODO make slider work 
+              // TODO make slider work
               Expanded(
-                child: Slider(value: .2, onChanged: (double value) {}),
+                child: Obx(() {
+                  return Slider(
+                      min: 0.0,
+                      max: 1.0,
+                      value: controller.volume.value,
+                      onChanged: controller.setVolume);
+                }),
               ),
             ],
           ),

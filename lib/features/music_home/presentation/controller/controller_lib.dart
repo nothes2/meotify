@@ -92,7 +92,6 @@ class LibController extends GetxController {
         songs: [],
         subfolders: []);
 
-// TODO handle data here
     final response = await libRepo.addAlbum(playlist);
 
     if (response.statusCode != 200) {

@@ -39,6 +39,7 @@ class MeotifyRegButtonGroup extends StatelessWidget {
           child: OutlinedButton(
             onPressed: () {
               Get.back();
+              Get.back();
               Get.dialog(const LoginFrame());
             },
             style: ElevatedButton.styleFrom(minimumSize: const Size(335, 40)),

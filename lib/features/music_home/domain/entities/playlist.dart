@@ -23,28 +23,28 @@ class Library {
 }
 
 class Playlist {
-  final String name;
+  final String? name;
   final String? image;
-  final bool canBeRemoved;
-  final String type;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final String userId;
-  final List<dynamic> songs;
-  final List<dynamic> subfolders;
+  final bool? canBeRemoved;
+  final String? type;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final String? userId;
+  final List<dynamic>? songs;
+  final List<dynamic>? subfolders;
   final String? description;
   final String? id;
 
   Playlist({
-    required this.name,
+    this.name,
     this.image,
-    required this.canBeRemoved,
-    required this.type,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.userId,
-    required this.songs,
-    required this.subfolders,
+    this.canBeRemoved,
+    this.type,
+    this.createdAt,
+    this.updatedAt,
+    this.userId,
+    this.songs,
+    this.subfolders,
     this.description,
     this.id,
   });
@@ -76,8 +76,8 @@ class Playlist {
       'image': image,
       'can_be_removed': canBeRemoved,
       'type': type,
-      'created_at': {'\$date': createdAt.toIso8601String()},
-      'updated_at': {'\$date': updatedAt.toIso8601String()},
+      'created_at': {'\$date': createdAt?.toIso8601String()},
+      'updated_at': {'\$date': updatedAt?.toIso8601String()},
       'user_id': {'\$oid': userId},
       'songs': songs,
       'subfolders': subfolders,

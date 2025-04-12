@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:meowdify/core/widgets/general.dart';
 import 'package:meowdify/features/player/presentation/controller/controller_music_player.dart';
+
 class MainPlayer extends StatelessWidget {
   final AudioController controller;
   const MainPlayer({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return const MeoCard(
+    return MeoCard(
       padding: 10,
       radius: 5,
       child: Column(
-        children: [MainButtonGroup(), ProgressBar()],
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          MainButtonGroup(
+            controller: controller,
+          ),
+          ProgressBar(controller: controller)
+        ],
       ),
     );
   }
 }
 
 class MainButtonGroup extends StatelessWidget {
-  const MainButtonGroup({super.key});
-
+  const MainButtonGroup({super.key, required this.controller});
+  final AudioController controller;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -30,17 +38,24 @@ class MainButtonGroup extends StatelessWidget {
       children: [
         SvgPicture.asset(
           "assets/images/icon/btn_pre.svg",
-          height: 24,
+          height: 20,
         ),
         const SizedBox(width: 8),
-        SvgPicture.asset(
-          "assets/images/icon/btn_play.svg",
-          height: 48,
-        ),
+        Obx(() {
+          return GestureDetector(
+            child: SvgPicture.asset(
+              controller.isPlaying.value
+                  ? "assets/images/icon/btn_pause.svg"
+                  : "assets/images/icon/btn_play.svg",
+              height: 36,
+            ),
+            onTapDown: (detail) => {controller.togglePlayPause()},
+          );
+        }),
         const SizedBox(width: 8),
         SvgPicture.asset(
           "assets/images/icon/btn_next.svg",
-          height: 24,
+          height: 20,
         ),
       ],
     ));
@@ -48,27 +63,54 @@ class MainButtonGroup extends StatelessWidget {
 }
 
 class ProgressBar extends StatelessWidget {
-  const ProgressBar({super.key});
+  final AudioController controller;
+  const ProgressBar({super.key, required this.controller});
+  String formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    return "${twoDigits(duration.inMinutes)}:${twoDigits(duration.inSeconds.remainder(60))}";
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text("00:00"),
-        const SizedBox(width: 8),
-        SizedBox(
-          width: 550,
-          child: LinearProgressIndicator(
-            value: 0.6,
-            backgroundColor: Theme.of(context).colorScheme.surface,
-            valueColor: AlwaysStoppedAnimation<Color>(
-                Theme.of(context).colorScheme.primary),
-          ),
-        ),
-        const SizedBox(width: 8),
-        const Text("10:00")
-      ],
-    );
+    return Obx(() {
+      final position = controller.currentPosition.value;
+      final total = controller.totalDuration.value;
+
+      final double current = position.inSeconds.toDouble();
+      final double max = total.inSeconds.toDouble();
+
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(formatDuration(position)),
+          const SizedBox(width: 8),
+          SizedBox(
+              width: 550,
+              child: SliderTheme(
+                data: SliderTheme.of(context).copyWith(
+                  trackHeight: 3,
+                  thumbShape:
+                      const RoundSliderThumbShape(enabledThumbRadius: 6),
+                  overlayShape:
+                      const RoundSliderOverlayShape(overlayRadius: 12),
+                ),
+                child: Slider(
+                  min: 0.0,
+                  max: max == 0.0 ? 100.0 : max, // prevent div by zero
+                  value: current,
+                  onChanged: (value) {
+                    controller.startDragging(value);
+                    controller.updateDragging(value);
+                  },
+                  onChangeEnd: (value) {
+                    controller.endDragging(value);
+                  },
+                ),
+              )),
+          const SizedBox(width: 8),
+          Text(formatDuration(total)),
+        ],
+      );
+    });
   }
 }

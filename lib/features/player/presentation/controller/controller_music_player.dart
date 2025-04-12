@@ -1,104 +1,112 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:get/get.dart';
-import 'package:just_audio/just_audio.dart';
+import 'package:meowdify/core/domain/entities/en_track.dart';
+import 'package:meowdify/core/domain/entities/en_user.dart';
+import 'package:meowdify/core/utilities/flutter_secure_storage_repo_impl.dart';
+import 'package:meowdify/features/player/data/repository/repo_audio.dart';
 
 class AudioController extends GetxController {
-  // The audio player instance
-  late AudioPlayer _audioPlayer;
-
-  // Observable variables for audio state
+  final AudioPlayer audioPlayer = AudioPlayer();
   var isPlaying = false.obs;
-  var isLooping = false.obs;
   var currentPosition = Duration.zero.obs;
   var totalDuration = Duration.zero.obs;
+  RxList<TrackInfo> queue = <TrackInfo>[].obs;
+  final storage = Get.put(SecureStorageRepositoryImpl());
+  final audioRepo = Get.put(AudioRepository());
 
-  // Playlist
-  final List<String> playlist = [
-    "https://www.example.com/audio1.mp3",
-    "https://www.example.com/audio2.mp3",
-    "https://www.example.com/audio3.mp3",
-  ];
-  var currentTrackIndex = 0.obs;
+  RxDouble volume = 0.5.obs;
+  var isDragging = false.obs;
+  var dragValue = 0.0.obs;
+
+  final String link =
+      "http://localhost:3000/music/67ecb27b1c7a4c35b09d81c6/67f9e64b9e6ab136d829d41a/1744430658280-Dankidz_-_Statue.mp3";
 
   @override
   void onInit() {
     super.onInit();
-    _audioPlayer = AudioPlayer();
     _setupAudioPlayer();
   }
 
-  // Set up the player
-  void _setupAudioPlayer() {
-    _audioPlayer.positionStream.listen((position) {
-      currentPosition.value = position;
-    });
-
-    _audioPlayer.durationStream.listen((duration) {
-      if (duration != null) {
-        totalDuration.value = duration;
-      }
-    });
-
-    _audioPlayer.playbackEventStream.listen((event) {
-      if (event.processingState == ProcessingState.completed) {
-        nextTrack();
-      }
-    });
+  // Start dragging for the progress bar
+  void startDragging(double value) {
+    isDragging.value = true;
+    dragValue.value = value;
   }
 
-  // Play or pause the music
+  // Update the progress value while dragging
+  void updateDragging(double value) {
+    dragValue.value = value;
+  }
+
+  // End dragging and seek to the correct position
+  void endDragging(double value) {
+    isDragging.value = false;
+    seekTo(Duration(
+        seconds: value.toInt())); // Convert value to duration in seconds
+  }
+
+  // Setup audio player listeners for position and duration changes
+  void _setupAudioPlayer() {
+    audioPlayer.onPositionChanged.listen((position) {
+      if (!isDragging.value) {
+        currentPosition.value =
+            position; // Update current position unless dragging
+      }
+    });
+
+    audioPlayer.onDurationChanged.listen((duration) {
+      totalDuration.value = duration; // Update total duration
+    });
+
+    audioPlayer.setVolume(volume.value); // Set initial volume
+  }
+
+  // Set the volume of the audio player
+  void setVolume(double volume) {
+    this.volume.value = volume.clamp(0.0, 1.0); // Clamp volume between 0 and 1
+    audioPlayer.setVolume(this.volume.value);
+  }
+
+  // Seek to a specific position in the audio
+  void seekTo(Duration position) {
+    audioPlayer.seek(position);
+  }
+
+  // Toggle play/pause
   void togglePlayPause() async {
     if (isPlaying.value) {
-      await _audioPlayer.pause();
+      await audioPlayer.pause();
     } else {
-      if (_audioPlayer.playerState.processingState == ProcessingState.completed) {
-        await _audioPlayer.seek(Duration.zero);
-      }
-      await _audioPlayer.play();
+      // Wait for the audio to initialize before playing
+      await audioPlayer.play(UrlSource(link));
+      // Initialize totalDuration after the track starts
+      audioPlayer.onDurationChanged.listen((duration) {
+        if (totalDuration.value == Duration.zero) {
+          totalDuration.value =
+              duration; // Set the duration only the first time
+        }
+      });
     }
+
+    // Update play/pause state
     isPlaying.value = !isPlaying.value;
   }
 
-  // Play the current track
-  void playTrack(int index) async {
-    await _audioPlayer.setUrl(playlist[index]);
-    await _audioPlayer.play();
-    currentTrackIndex.value = index;
-    isPlaying.value = true;
-  }
+  // Fetch the queue (add the logic for it)
+  void getQueue() async {
+    User user = await storage.getData("user") as User;
 
-  // Stop the audio
-  void stopAudio() async {
-    await _audioPlayer.stop();
-    isPlaying.value = false;
-  }
-
-  // Enable or disable loop
-  void toggleLoop() {
-    isLooping.value = !isLooping.value;
-    _audioPlayer.setLoopMode(isLooping.value ? LoopMode.all : LoopMode.off);
-  }
-
-  // Skip to the next track in the playlist
-  void nextTrack() {
-    if (currentTrackIndex.value < playlist.length - 1) {
-      playTrack(currentTrackIndex.value + 1);
-    } else {
-      playTrack(0); // Loop back to the first track
+    if (user.id == null) {
+      Get.snackbar("Error", "Network error");
+      return;
     }
-  }
 
-  // Go to the previous track
-  void previousTrack() {
-    if (currentTrackIndex.value > 0) {
-      playTrack(currentTrackIndex.value - 1);
-    } else {
-      playTrack(playlist.length - 1); // Loop back to the last track
-    }
+    Response response = await audioRepo.getQueue(user.id!);
   }
 
   @override
   void onClose() {
-    _audioPlayer.dispose();
+    audioPlayer.dispose();
     super.onClose();
   }
 }

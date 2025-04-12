@@ -160,7 +160,7 @@ class UploadController extends GetxController {
     final response = await musicUploadRepo.uploadMusicCover(File(file.path!));
 
     print(response!.body);
-    final Map<String, dynamic> body = jsonDecode(response!.body);
+    final Map<String, dynamic> body = jsonDecode(response.body);
     if (body['success'] == true) {
       final data = body['data']?['tempId'];
       if (data != null) {

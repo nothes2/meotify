@@ -7,6 +7,7 @@ import 'package:meowdify/features/music_home/presentation/controller/controller_
 import 'package:meowdify/features/music_home/presentation/widget/home_content.dart';
 import 'package:meowdify/features/music_home/presentation/widget/home_detail.dart';
 import 'package:meowdify/features/music_home/presentation/widget/home_lib_list.dart';
+import 'package:meowdify/features/music_home/presentation/widget/playlist/playlist.dart';
 import 'package:meowdify/features/user/presentation/pages/pages_profile.dart';
 
 class Home extends StatelessWidget {
@@ -35,7 +36,22 @@ class Home extends StatelessWidget {
                     initialRoute: AppRoutes.content,
                     key: home,
                     onGenerateRoute: (settings) {
-                      switch (settings.name) {
+                      final uri = Uri.parse(settings.name ?? "");
+                      print('Requested URI: ${uri.path}');
+
+                      if (uri.pathSegments.isNotEmpty) {
+                        if (uri.pathSegments[0] == 'playlist' &&
+                            uri.pathSegments.length == 2) {
+                          final playlistId = uri.pathSegments[1];
+                          return MaterialPageRoute(
+                            builder: (context) =>
+                                PlaylistPage(playlistId: playlistId),
+                          );
+                        }
+                      }
+
+                      // default route
+                      switch (uri.path) {
                         case AppRoutes.content:
                           return MaterialPageRoute(
                             builder: (context) => const HomeContent(),
@@ -44,6 +60,7 @@ class Home extends StatelessWidget {
                           return MaterialPageRoute(
                               builder: (context) => const ProfilePage());
                         default:
+                          print("gose to defaut ${uri.path}");
                           return MaterialPageRoute(
                             builder: (context) => const HomeContent(),
                           );
@@ -61,7 +78,7 @@ class Home extends StatelessWidget {
                       child: DetailPanel(),
                     ),
                   ])
-                : SizedBox.shrink();
+                : const SizedBox.shrink();
           })
         ],
       ),

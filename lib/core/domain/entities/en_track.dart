@@ -66,17 +66,19 @@ class TrackInfo {
     String? artist,
     String? coverUrl,
     String? genre,
+    String? id,
   }) {
     return TrackInfo(
-        duration: duration ?? this.duration,
-        url: url ?? this.url,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
-        uploaderId: uploaderId ?? this.uploaderId,
-        title: title ?? this.title,
-        artist: artist ?? this.artist,
-        coverUrl: coverUrl ?? this.coverUrl,
-        genre: genre ?? this.genre,
-        id: id ?? id);
+      duration: duration ?? this.duration,
+      url: url ?? this.url,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      uploaderId: uploaderId ?? this.uploaderId,
+      title: title ?? this.title,
+      artist: artist ?? this.artist,
+      coverUrl: coverUrl ?? this.coverUrl,
+      genre: genre ?? this.genre,
+      id: id ?? this.id,
+    );
   }
 }

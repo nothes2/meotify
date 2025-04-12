@@ -66,7 +66,6 @@ class Meotify extends StatelessWidget {
                   ),
                 ),
                 const Expanded(
-                  flex: 1,
                   child: MeoPlayer(),
                 ),
               ],
