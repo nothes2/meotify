@@ -30,6 +30,7 @@ class Playlist {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final String? userId;
+  final String? visibility;
   final List<dynamic>? songs;
   final List<dynamic>? subfolders;
   final String? description;
@@ -44,6 +45,7 @@ class Playlist {
     this.updatedAt,
     this.userId,
     this.songs,
+    this.visibility,
     this.subfolders,
     this.description,
     this.id,
@@ -63,6 +65,7 @@ class Playlist {
           : DateTime.parse(json['updated_at']),
       userId:
           json['user_id'] is Map ? json['user_id']['\$oid'] : json['user_id'],
+      visibility: json['visibility'],
       songs: List<dynamic>.from(json['songs']),
       subfolders: List<dynamic>.from(json['subfolders']),
       description: json['description'],
@@ -79,6 +82,7 @@ class Playlist {
       'created_at': {'\$date': createdAt?.toIso8601String()},
       'updated_at': {'\$date': updatedAt?.toIso8601String()},
       'user_id': {'\$oid': userId},
+      'visibility': visibility,
       'songs': songs,
       'subfolders': subfolders,
       'description': description,

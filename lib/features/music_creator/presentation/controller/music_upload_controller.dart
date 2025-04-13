@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:meowdify/core/domain/entities/en_track.dart';
@@ -207,7 +206,8 @@ class UploadController extends GetxController {
     final Map<String, dynamic> body = jsonDecode(response!.body);
 
     if (body["success"] == true) {
-      Get.snackbar("Success".tr, "You published a track!", overlayColor: Colors.green);
+      Get.snackbar("Success".tr, "You published a track!",
+          overlayColor: Colors.green);
       publishSuccess.value = true;
       return;
     }

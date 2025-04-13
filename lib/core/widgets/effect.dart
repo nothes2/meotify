@@ -5,12 +5,12 @@ List<BoxShadow> cardShadow(BuildContext context) {
     BoxShadow(
         blurRadius: 2,
         offset: const Offset(1, 1),
-        color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.2),
+        color: Theme.of(context).colorScheme.onPrimary.withAlpha(20),
         spreadRadius: 0),
     BoxShadow(
         blurRadius: 2,
         offset: const Offset(-1, -1),
-        color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.2),
+        color: Theme.of(context).colorScheme.surface.withAlpha(20),
         spreadRadius: 0),
   ];
 }

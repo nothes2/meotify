@@ -86,6 +86,7 @@ class LibController extends GetxController {
         image: tempId.value,
         canBeRemoved: true,
         type: selectedPlaylistType.value,
+        visibility: selectedVisibility.value,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
         userId: user.id ?? "",
@@ -101,6 +102,44 @@ class LibController extends GetxController {
     getLib();
     Get.snackbar("info", "add album success!");
     tempId.value = "";
+    clearForm();
+  }
+
+  Future<void> deleteLib(String id) async {
+    var response = await libRepo.deleteAlbum(id);
+
+    if (response.statusCode != 200) {
+      Get.snackbar("Error".tr, "Network error".tr);
+      return;
+    }
+
+    if (response.body['success'] != true) {
+      Get.snackbar("Error".tr, "Delete failed!".tr);
+      return;
+    }
+
+    Get.snackbar("Success".tr, "Delete successful!".tr);
+    getLib();
+    clearForm();
+  }
+
+  Future<void> updateLib(String id) async {
+    // TODO not only id the whole data need to be change here
+    var response = await libRepo.updateLib(id);
+
+    if (response.statusCode != 200) {
+      Get.snackbar("Error".tr, "Network error".tr);
+      return;
+    }
+
+    if (response.body['success'] != true) {
+      Get.snackbar("Error".tr, "Update failed!".tr);
+      return;
+    }
+
+    Get.snackbar("Success".tr, "Update successful!".tr);
+    getLib();
+    clearForm();
   }
 
 // Get Music Library from backend
@@ -108,7 +147,7 @@ class LibController extends GetxController {
     final userData = User.fromJson(jsonDecode(await storage.getData("user")));
     var response = await libRepo.getLib(userData.id.toString());
     if (response.statusCode != 200) {
-      Get.snackbar("error", "connection failed!");
+      Get.snackbar("Error".tr, "Network error".tr);
       return;
     }
 
@@ -124,7 +163,19 @@ class LibController extends GetxController {
     lib.value = (playlistData as List<dynamic>)
         .map((element) => Library.fromJson(element as Map<String, dynamic>))
         .toList();
-
+    clearForm();
     return;
+  }
+
+  void clearForm() {
+    titleController.clear();
+    descriptionController.clear();
+    title.value = "";
+    description.value = "";
+    titleError.value = "";
+    descriptionError.value = "";
+    selectedPlaylistType.value = "playlist";
+    selectedVisibility.value = "public";
+    tempId.value = "";
   }
 }

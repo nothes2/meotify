@@ -8,7 +8,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO controller
+    // TODO finish the controller and pages
     final controller = Get.put(ProfileController());
 
     return Obx(() {
@@ -38,7 +38,7 @@ class ProfilePage extends StatelessWidget {
             decoration:
                 BoxDecoration(color: Theme.of(context).colorScheme.surface),
             child: Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Row(
                 children: [
                   Column(

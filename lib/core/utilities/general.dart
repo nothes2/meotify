@@ -37,3 +37,17 @@ Response errorCheck(String label, Response response) {
     throw Exception('Failed to $label: ${response.statusText}');
   }
 }
+
+Text secondaryTitleText(String text) {
+  return Text(
+    text,
+    style: const TextStyle(fontSize: 16),
+  );
+}
+
+Text titleText(String text) {
+  return Text(
+    text,
+    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+  );
+}

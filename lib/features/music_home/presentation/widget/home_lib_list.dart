@@ -6,6 +6,7 @@ import 'package:meowdify/core/routes/routes.dart';
 import 'package:meowdify/core/utilities/general.dart';
 import 'package:meowdify/core/utilities/navigator_key.dart';
 import 'package:meowdify/core/widgets/general.dart';
+import 'package:meowdify/features/music_home/domain/entities/playlist.dart';
 import 'package:meowdify/features/music_home/presentation/controller/controller_lib.dart';
 import 'package:meowdify/features/user/presentation/components/single_input.dart';
 
@@ -81,7 +82,8 @@ Widget _listBuilder(LibController controller) {
           },
         ),
         onSecondaryTapDown: (TapDownDetails details) {
-          _showMenu(context, details.globalPosition, controller, index);
+          _showMenu(context, details.globalPosition, controller,
+              controller.lib.value[index].playlist!.id);
         },
       );
     },
@@ -89,7 +91,7 @@ Widget _listBuilder(LibController controller) {
 }
 
 void _showMenu(BuildContext context, Offset position, LibController controller,
-    int index) {
+    String? id) {
   final overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
   final offset = overlay.globalToLocal(position);
   showMenu(
@@ -112,15 +114,22 @@ void _showMenu(BuildContext context, Offset position, LibController controller,
     ],
   ).then((value) {
     if (value == 'edit') {
-      debugPrint(
-          'Edit selected for index $index ${controller.lib.value[index].playlist?.name}');
+      print(id);
+      // TODO edit logical here
+      Get.dialog(_dialog(controller, isUpdate: true));
     } else if (value == 'delete') {
-      debugPrint('Delete selected for index $index');
+      debugPrint('Delete selected for index $id');
+      if (id == null) {
+        Get.snackbar("Error".tr, "Network error".tr);
+        return;
+      }
+
+      controller.deleteLib(id);
     }
   });
 }
 
-Widget _dialog(LibController controller) {
+Widget _dialog(LibController controller, {bool? isUpdate}) {
   return AlertDialog(
     title: const Text("Add Playlist"),
     content: SingleChildScrollView(
@@ -246,10 +255,16 @@ Widget _dialog(LibController controller) {
       ),
       TextButton(
         onPressed: () {
+          if (isUpdate == null) {
+            controller.addPlaylist();
+            Get.back();
+            return;
+          }
+
           controller.addPlaylist();
           Get.back();
         },
-        child: const Text("Create"),
+        child: Text(isUpdate != null ? "UPDATE" : "Create"),
       ),
     ],
   );

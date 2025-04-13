@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:meowdify/features/music_home/domain/entities/playlist.dart';
+import 'package:meowdify/features/user/data/repositories/impl/login_repository_impl.dart';
 
 class PlaylistRepo extends GetConnect {
   @override
@@ -29,17 +30,20 @@ class PlaylistRepo extends GetConnect {
   }
 
   Future<Response> addAlbum(Playlist playlist) async {
-    print(playlist.userId);
     final response = await post("/add_album", {"playlist": playlist});
 
     return errorCheck("add_album", response);
   }
-}
 
-Response errorCheck(String label, Response response) {
-  if (response.isOk) {
-    return response;
-  } else {
-    throw Exception('Failed to $label: ${response.statusText}');
+  Future<Response> deleteAlbum(String id) async {
+    final response = await post("/delete_album", {"_id": id});
+
+    return errorCheck("delete album", response);
+  }
+
+  Future<Response> updateLib(String id) async {
+    final response = await post("/update_album", {"_id": id});
+
+    return errorCheck("delete album", response);
   }
 }

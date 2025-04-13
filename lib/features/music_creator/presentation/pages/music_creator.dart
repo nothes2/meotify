@@ -55,7 +55,7 @@ class CreatorMenu extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ListTile(
-                title: Text(title),
+                title: Text(title.tr),
                 trailing:
                     Icon(isExpanded ? Icons.expand_less : Icons.expand_more),
                 onTap: () => controller.toggleMenu(title),
@@ -64,7 +64,7 @@ class CreatorMenu extends StatelessWidget {
                 ...children.map((subItem) => Padding(
                       padding: const EdgeInsets.only(left: 24),
                       child: ListTile(
-                        title: Text(subItem),
+                        title: Text(subItem.tr),
                         onTap: () {
                           switch (subItem) {
                             case "Overview":

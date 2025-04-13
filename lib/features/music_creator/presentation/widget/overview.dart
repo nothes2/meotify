@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:meowdify/core/utilities/general.dart';
 import 'package:meowdify/core/widgets/general.dart';
 
 import 'package:get/get.dart';
 import 'package:meowdify/features/music_creator/presentation/controller/monthly_toggle_button.dart';
-import 'package:meowdify/features/music_creator/presentation/widget/common.dart';
 
 class Overview extends StatelessWidget {
   const Overview({super.key});
@@ -21,7 +21,7 @@ class Overview extends StatelessWidget {
     );
   }
 }
-// TODO need track listen interaction table for data record 
+// TODO need track listen interaction table for data record
 
 class TotalData extends StatelessWidget {
   const TotalData({super.key});
@@ -106,7 +106,7 @@ class DiagramArea extends StatelessWidget {
                   isMonthly: true,
                 ),
                 const SizedBox(height: 4),
-                secondaryTitileText("Music Play Diagram"),
+                secondaryTitleText("Music Play Diagram"),
                 const SizedBox(height: 10),
                 MeoDiagram(
                   values: List.generate(
@@ -116,7 +116,7 @@ class DiagramArea extends StatelessWidget {
                   isMonthly: true,
                 ),
                 const SizedBox(height: 4),
-                secondaryTitileText("Music Likes Diagram"),
+                secondaryTitleText("Music Likes Diagram"),
               ],
             )
           : Row(
@@ -129,7 +129,7 @@ class DiagramArea extends StatelessWidget {
                     (i) => generateNumber(),
                   )),
                   const SizedBox(height: 4),
-                  secondaryTitileText("Music Like Diagram"),
+                  secondaryTitleText("Music Like Diagram"),
                 ]),
                 const SizedBox(
                   width: 10,
@@ -143,7 +143,7 @@ class DiagramArea extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    secondaryTitileText("Music Like Diagram"),
+                    secondaryTitleText("Music Like Diagram"),
                   ],
                 )
               ],
