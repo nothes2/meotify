@@ -70,6 +70,7 @@ class LibController extends GetxController {
 
     final data = response.body['data']["tempId"];
     tempId.value = data;
+    print("temp ID: ${tempId.value}");
   }
 
   Future<void> addPlaylist() async {
@@ -91,8 +92,10 @@ class LibController extends GetxController {
         updatedAt: DateTime.now(),
         userId: user.id ?? "",
         songs: [],
-        subfolders: []);
+        subfolders: [],
+        description: description.value);
 
+    print("descprtion value ${description.value}");
     final response = await libRepo.addAlbum(playlist);
 
     if (response.statusCode != 200) {
@@ -113,6 +116,8 @@ class LibController extends GetxController {
       return;
     }
 
+    print(response.body);
+
     if (response.body['success'] != true) {
       Get.snackbar("Error".tr, "Delete failed!".tr);
       return;
@@ -123,9 +128,18 @@ class LibController extends GetxController {
     clearForm();
   }
 
-  Future<void> updateLib(String id) async {
+  // function for update playlist!
+
+  Future<void> updatePlaylist(String id, String userId) async {
     // TODO not only id the whole data need to be change here
-    var response = await libRepo.updateLib(id);
+    final response = await libRepo.updateLib(
+        id,
+        title.value,
+        description.value,
+        userId,
+        tempId.value,
+        selectedPlaylistType.value,
+        selectedVisibility.value);
 
     if (response.statusCode != 200) {
       Get.snackbar("Error".tr, "Network error".tr);
@@ -168,6 +182,19 @@ class LibController extends GetxController {
   }
 
   void clearForm() {
+    titleController.clear();
+    descriptionController.clear();
+    title.value = "";
+    description.value = "";
+    titleError.value = "";
+    descriptionError.value = "";
+    selectedPlaylistType.value = "playlist";
+    selectedVisibility.value = "public";
+    tempId.value = "";
+  }
+
+  @override
+  void onClose() {
     titleController.clear();
     descriptionController.clear();
     title.value = "";

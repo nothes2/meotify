@@ -18,10 +18,12 @@ class AppTheme {
           onSecondary: AppColors.lightSecondaryText),
       elevatedButtonTheme: elevatedButtonThemes(Brightness.light),
       inputDecorationTheme: inputDecorationThemes(Brightness.light),
-      outlinedButtonTheme: outlinedButtonThemes(Brightness.light));
+      outlinedButtonTheme: outlinedButtonThemes(Brightness.light),
+      dataTableTheme: const DataTableThemeData(dividerThickness: 0));
 
   static ThemeData darkTheme = ThemeData(
       brightness: Brightness.dark,
+      dividerColor: Colors.transparent,
       useMaterial3: true,
       primaryColor: AppColors.darkPrimaryAccent,
       scaffoldBackgroundColor: AppColors.darkBackground,
@@ -34,7 +36,8 @@ class AppTheme {
           onPrimary: AppColors.darkPrimaryText,
           onSecondary: AppColors.darkSecondaryText),
       inputDecorationTheme: inputDecorationThemes(Brightness.dark),
-      outlinedButtonTheme: outlinedButtonThemes(Brightness.dark));
+      outlinedButtonTheme: outlinedButtonThemes(Brightness.dark),
+      dataTableTheme: const DataTableThemeData(dividerThickness: 0));
 
   static ElevatedButtonThemeData elevatedButtonThemes(Brightness brightness) {
     final isDark = brightness == Brightness.dark;

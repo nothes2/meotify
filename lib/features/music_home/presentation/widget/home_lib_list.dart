@@ -83,7 +83,7 @@ Widget _listBuilder(LibController controller) {
         ),
         onSecondaryTapDown: (TapDownDetails details) {
           _showMenu(context, details.globalPosition, controller,
-              controller.lib.value[index].playlist!.id);
+              controller.lib.value[index].playlist);
         },
       );
     },
@@ -91,7 +91,7 @@ Widget _listBuilder(LibController controller) {
 }
 
 void _showMenu(BuildContext context, Offset position, LibController controller,
-    String? id) {
+    Playlist? playlist) {
   final overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
   final offset = overlay.globalToLocal(position);
   showMenu(
@@ -114,22 +114,29 @@ void _showMenu(BuildContext context, Offset position, LibController controller,
     ],
   ).then((value) {
     if (value == 'edit') {
-      print(id);
+      print(playlist?.id);
       // TODO edit logical here
-      Get.dialog(_dialog(controller, isUpdate: true));
+      Get.dialog(_dialog(controller, isUpdate: true, playlist: playlist));
     } else if (value == 'delete') {
-      debugPrint('Delete selected for index $id');
-      if (id == null) {
+      debugPrint('Delete selected for index ${playlist?.id}');
+      if (playlist?.id == null) {
         Get.snackbar("Error".tr, "Network error".tr);
         return;
       }
 
-      controller.deleteLib(id);
+      controller.deleteLib(playlist?.id ?? "");
     }
   });
 }
 
-Widget _dialog(LibController controller, {bool? isUpdate}) {
+Widget _dialog(LibController controller, {bool? isUpdate, Playlist? playlist}) {
+  if (isUpdate != null) {
+    controller.titleController.text = playlist?.name ?? "";
+    controller.descriptionController.text = playlist?.description ?? "";
+    controller.selectedVisibility.value = playlist?.visibility ?? "public";
+    controller.selectedPlaylistType.value = playlist?.type ?? "public";
+  }
+
   return AlertDialog(
     title: const Text("Add Playlist"),
     content: SingleChildScrollView(
@@ -143,17 +150,29 @@ Widget _dialog(LibController controller, {bool? isUpdate}) {
               children: [
                 GestureDetector(
                   child: Obx(() {
-                    return controller.tempId.value == ""
-                        ? const MeoShimmer(
-                            hight: 100,
-                            width: 100,
-                          )
-                        : Image.network(
-                            tempHeader + controller.tempId.value,
-                            height: 100,
-                            width: 100,
-                            fit: BoxFit.cover,
-                          );
+                    final hasTempImage = controller.tempId.value.isNotEmpty;
+                    final isUpdating = isUpdate != null;
+
+                    if (hasTempImage) {
+                      return Image.network(
+                        tempHeader + controller.tempId.value,
+                        height: 100,
+                        width: 100,
+                        fit: BoxFit.cover,
+                      );
+                    } else if (isUpdating && playlist != null) {
+                      return Image.network(
+                        "$header${playlist.image}",
+                        height: 100,
+                        width: 100,
+                        fit: BoxFit.cover,
+                      );
+                    } else {
+                      return const MeoShimmer(
+                        hight: 100,
+                        width: 100,
+                      );
+                    }
                   }),
                   onTap: () => {controller.uploadCover()},
                 ),
@@ -209,9 +228,7 @@ Widget _dialog(LibController controller, {bool? isUpdate}) {
               label: "Description",
               keyboardType: TextInputType.text,
               prefixIcon: Icons.description,
-              onValueChanged: (description, _) {
-                debugPrint(description);
-              },
+              onValueChanged: controller.onValueChanged,
               fieldName: 'description',
               controller: controller.descriptionController,
               errorText: "",
@@ -223,10 +240,6 @@ Widget _dialog(LibController controller, {bool? isUpdate}) {
                 prefixIcon: Icon(Icons.playlist_play),
               ),
               items: const [
-                DropdownMenuItem(
-                  value: "folder",
-                  child: Text("Folder"),
-                ),
                 DropdownMenuItem(
                   value: "playlist",
                   child: Text("Playlist"),
@@ -261,10 +274,10 @@ Widget _dialog(LibController controller, {bool? isUpdate}) {
             return;
           }
 
-          controller.addPlaylist();
+          controller.updatePlaylist(playlist?.id ?? "", playlist?.userId ?? "");
           Get.back();
         },
-        child: Text(isUpdate != null ? "UPDATE" : "Create"),
+        child: Text(isUpdate != null ? "UPDATE" : "CREATE"),
       ),
     ],
   );

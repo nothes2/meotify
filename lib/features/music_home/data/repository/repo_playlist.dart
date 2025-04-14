@@ -41,9 +41,26 @@ class PlaylistRepo extends GetConnect {
     return errorCheck("delete album", response);
   }
 
-  Future<Response> updateLib(String id) async {
-    final response = await post("/update_album", {"_id": id});
+  Future<Response> updateLib(
+    String id,
+    String name,
+    String description,
+    String userId,
+    String imagePath,
+    String type,
+    String visibility,
+  ) async {
+    final response = await post("/update_album", {
+      "_id": id,
+      "name": name,
+      "description": description,
+      "imagePath": imagePath,
+      "userId": userId,
+      "image": imagePath,
+      "type": type,
+      "visibility": visibility,
+    });
 
-    return errorCheck("delete album", response);
+    return errorCheck("update album", response);
   }
 }

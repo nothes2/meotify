@@ -51,3 +51,10 @@ Text titleText(String text) {
     style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
   );
 }
+
+String formatDuration(double seconds) {
+  final duration = Duration(seconds: seconds.floor());
+  final minutes = duration.inMinutes;
+  final remainingSeconds = duration.inSeconds % 60;
+  return '$minutes:${remainingSeconds.toString().padLeft(2, '0')}';
+}
