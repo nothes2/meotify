@@ -45,5 +45,3 @@ class RegisterWidget extends StatelessWidget {
                 ])));
   }
 }
-
-// TODO finish the login pages

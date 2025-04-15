@@ -15,6 +15,7 @@ class MainPlayer extends StatelessWidget {
       radius: 5,
       child: Column(
         mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           MainButtonGroup(
             controller: controller,
@@ -31,9 +32,8 @@ class MainButtonGroup extends StatelessWidget {
   final AudioController controller;
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Row(
-      mainAxisSize: MainAxisSize.min,
+    return Row(
+      mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SvgPicture.asset(
@@ -58,7 +58,7 @@ class MainButtonGroup extends StatelessWidget {
           height: 20,
         ),
       ],
-    ));
+    );
   }
 }
 

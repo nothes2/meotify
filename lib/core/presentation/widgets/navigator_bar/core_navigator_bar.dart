@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:meowdify/core/presentation/controllers/controller_auth.dart';
 import 'package:meowdify/core/routes/routes.dart';
+import 'package:meowdify/core/utilities/colors.dart';
 import 'package:meowdify/core/utilities/navigator_key.dart';
 import 'package:meowdify/core/widgets/effect.dart';
 import 'package:meowdify/features/user/presentation/pages/pages_profile.dart';
@@ -10,7 +11,9 @@ import 'package:meowdify/features/user/presentation/pages/pages_profile.dart';
 BoxDecoration coreNaviBoxDoc(BuildContext context) {
   return BoxDecoration(
       borderRadius: BorderRadius.circular(5),
-      color: Colors.white,
+      color: Theme.of(context).brightness == Brightness.dark
+          ? AppColors.pureDark
+          : AppColors.pure,
       boxShadow: cardShadow(context));
 }
 
@@ -84,6 +87,7 @@ class UserInfo extends StatelessWidget {
         IconButton.filled(
           onPressed: () {
             father.currentState?.pushReplacementNamed(AppRoutes.home);
+            home.currentState?.pushReplacementNamed(AppRoutes.content);
           },
           icon: const Icon(
             Icons.home,

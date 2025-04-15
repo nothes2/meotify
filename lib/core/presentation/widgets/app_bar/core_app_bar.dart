@@ -34,7 +34,9 @@ class PrimaryAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.black87
+            : Colors.white,
         leading: const AppPadding(
           child: Row(
             children: [AppBarLeading(), AppBarLeadingText()],

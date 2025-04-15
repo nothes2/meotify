@@ -14,6 +14,7 @@ class PlaylistBtnGroup extends StatelessWidget {
       padding: 10,
       radius: 5,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ListButtonGroup(controller: controller),
           QueueInfo(
@@ -50,6 +51,7 @@ class ListButtonGroup extends StatelessWidget {
         Flexible(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
             children: [
               // switch to mute and normal
               SvgPicture.asset(
@@ -58,7 +60,6 @@ class ListButtonGroup extends StatelessWidget {
                 width: 28,
               ),
 
-              // TODO make slider work
               Expanded(
                 child: Obx(() {
                   return Slider(

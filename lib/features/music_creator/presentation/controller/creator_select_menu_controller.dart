@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 class SelectMenuController extends GetxController {
   final Map<String, List<String>> menuData = {
     'Dashboard': ["Overview"],
-    'My Music': ["Upload", "Management"],
+    'My Music': ["Upload", "Management", "Album"],
   };
 
   var expandedMenu = ''.obs;

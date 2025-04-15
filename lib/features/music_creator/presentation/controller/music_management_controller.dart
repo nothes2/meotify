@@ -49,9 +49,4 @@ class MusicManagementController extends GetxController {
     print(musicList.value[0].toJson());
     return;
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }

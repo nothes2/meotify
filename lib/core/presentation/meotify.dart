@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meowdify/core/bindings/bind_window.dart';
@@ -37,12 +40,12 @@ class Meotify extends StatelessWidget {
       translations: MeoTranslations(),
       initialRoute: AppRoutes.index,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
       home: Stack(
         children: [
           Scaffold(
-            appBar: const AppHeaderBar(),
+            appBar: !kIsWeb && Platform.isWindows ? const AppHeaderBar() : null,
             body: Column(
               children: [
                 const CoreNavigatorBar(),

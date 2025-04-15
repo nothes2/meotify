@@ -37,7 +37,6 @@ class Home extends StatelessWidget {
                     key: home,
                     onGenerateRoute: (settings) {
                       final uri = Uri.parse(settings.name ?? "");
-                      print('Requested URI: ${uri.path}');
 
                       if (uri.pathSegments.isNotEmpty) {
                         if (uri.pathSegments[0] == 'playlist' &&

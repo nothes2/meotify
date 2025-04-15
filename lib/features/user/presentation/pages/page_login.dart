@@ -50,5 +50,3 @@ class LoginWidget extends StatelessWidget {
                 ])));
   }
 }
-
-// TODO finish the login pages

@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 class AppColors {
   // Light Theme Colors
@@ -10,6 +10,7 @@ class AppColors {
   static const Color lightSurface = Color(0xFFF8E8EE);
   static const Color lightBluePrimary = Color(0xFFA3C7EE);
   static const Color lightBlueSecondary = Color(0xFFC0E0FF);
+  static const Color pure = Colors.white;
 
   // Dark Theme Colors
   static const Color darkPrimaryAccent = Color(0xFFB23B5D);
@@ -20,4 +21,5 @@ class AppColors {
   static const Color darkBluePrimary = Color(0xFF174E84);
   static const Color darkBlueSecondary = Color(0xFF2970D1);
   static const Color darkSecondaryAccent = Color(0xFFDB6885);
+  static const Color pureDark = Colors.black87;
 }

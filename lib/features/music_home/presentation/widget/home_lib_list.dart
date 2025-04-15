@@ -13,7 +13,6 @@ import 'package:meowdify/features/user/presentation/components/single_input.dart
 class MusicLib extends StatelessWidget {
   const MusicLib({super.key});
 
-// TODO GET PLAYLIST FROM BACKEND
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(LibController());
@@ -50,7 +49,7 @@ class MusicLib extends StatelessWidget {
   }
 }
 
-// TODO Update album info and click to the album page
+// TODO  click to the album page
 Widget _listBuilder(LibController controller) {
   return ListView.builder(
     itemCount: controller.lib.value.length,
@@ -114,8 +113,6 @@ void _showMenu(BuildContext context, Offset position, LibController controller,
     ],
   ).then((value) {
     if (value == 'edit') {
-      print(playlist?.id);
-      // TODO edit logical here
       Get.dialog(_dialog(controller, isUpdate: true, playlist: playlist));
     } else if (value == 'delete') {
       debugPrint('Delete selected for index ${playlist?.id}');

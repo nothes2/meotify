@@ -28,7 +28,9 @@ class MeoCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius),
         boxShadow: cardShadow(context),
-        color: color ?? Colors.white,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? Colors.black87
+            : Colors.white,
       ),
       child: child,
     );
