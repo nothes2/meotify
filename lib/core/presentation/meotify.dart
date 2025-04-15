@@ -15,6 +15,7 @@ import 'package:meowdify/core/utilities/navigator_key.dart';
 import 'package:meowdify/features/music_creator/presentation/pages/music_creator.dart';
 import 'package:meowdify/features/music_home/presentation/pages/home.dart';
 import 'package:meowdify/features/player/presentation/pages/player.dart';
+import 'package:meowdify/features/settings/presentation/pages/page_settings.dart';
 import 'package:meowdify/features/user/data/repositories/impl/login_repository_impl.dart';
 import 'package:meowdify/features/user/domain/usecases/login_usecase.dart';
 import 'package:meowdify/features/user/presentation/controller/controller_login.dart';
@@ -62,6 +63,9 @@ class Meotify extends StatelessWidget {
                         case AppRoutes.dashboard:
                           return MaterialPageRoute(
                               builder: (_) => const CreatorDashboard());
+                        case AppRoutes.settings:
+                          return MaterialPageRoute(
+                              builder: (context) => const Settings());
                         default:
                           return null;
                       }

@@ -12,4 +12,7 @@ class AppRoutes {
   static const overview = "/overview";
   static const musicupload = "/music_upload";
   static const musicManagement = "/music_management";
+
+  static const settings = "/settings";
+  static const accountManagement = "/account_management";
 }

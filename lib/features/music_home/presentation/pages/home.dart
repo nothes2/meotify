@@ -8,6 +8,7 @@ import 'package:meowdify/features/music_home/presentation/widget/home_content.da
 import 'package:meowdify/features/music_home/presentation/widget/home_detail.dart';
 import 'package:meowdify/features/music_home/presentation/widget/home_lib_list.dart';
 import 'package:meowdify/features/music_home/presentation/widget/playlist/playlist.dart';
+import 'package:meowdify/features/settings/presentation/pages/page_settings.dart';
 import 'package:meowdify/features/user/presentation/pages/pages_profile.dart';
 
 class Home extends StatelessWidget {
@@ -59,7 +60,6 @@ class Home extends StatelessWidget {
                           return MaterialPageRoute(
                               builder: (context) => const ProfilePage());
                         default:
-                          print("gose to defaut ${uri.path}");
                           return MaterialPageRoute(
                             builder: (context) => const HomeContent(),
                           );

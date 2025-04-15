@@ -155,7 +155,9 @@ class MeotifyTools extends StatelessWidget {
         ),
         MeoIconButton(
           iconData: Icons.settings,
-          callback: () {},
+          callback: () {
+            father.currentState?.pushReplacementNamed(AppRoutes.settings);
+          },
         ),
       ],
     );

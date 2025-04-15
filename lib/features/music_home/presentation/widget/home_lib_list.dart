@@ -75,7 +75,6 @@ Widget _listBuilder(LibController controller) {
           subtitle:
               Text(controller.lib.value[index].playlist?.type ?? "no type"),
           onTap: () {
-            print(controller.lib.value[index].playlist?.toJson());
             home.currentState?.pushReplacementNamed(
                 "${AppRoutes.playlist}${controller.lib.value[index].playlist?.id}");
           },
