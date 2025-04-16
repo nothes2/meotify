@@ -41,7 +41,10 @@ class SettingMenu extends StatelessWidget {
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         ListTile(
           title: const Text("Account Management"),
-          onTap: () => {},
+          onTap: () => {
+            settings.currentState
+                ?.pushReplacementNamed(AppRoutes.accountManagement),
+          },
         ),
         ListTile(
           title: const Text("Preferences"),
@@ -58,7 +61,7 @@ class CreatorContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Navigator(
-      key: creator,
+      key: settings,
       initialRoute: AppRoutes.accountManagement,
       onGenerateRoute: (settings) {
         switch (settings.name) {

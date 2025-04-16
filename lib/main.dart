@@ -23,3 +23,7 @@ void main() async {
 
   runApp(const Meotify());
 }
+
+// TODO 
+// 1. fix the settings route and creator key duplicated
+// 2. rewrite Get.dialog() logical

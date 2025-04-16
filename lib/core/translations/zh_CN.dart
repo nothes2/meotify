@@ -29,4 +29,5 @@ const Map<String, String> zhCN = {
   "Cannot find data": "无法找到数据",
   "Music Management": "音乐管理",
   "logout successful": "退出成功！",
+  "File Operation Error": "文件操作错误",
 };

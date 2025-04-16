@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:meowdify/core/constants/general.dart';
 import 'package:meowdify/core/presentation/controllers/controller_auth.dart';
 import 'package:meowdify/core/routes/routes.dart';
 import 'package:meowdify/core/utilities/colors.dart';
@@ -67,10 +68,15 @@ class UserInfo extends StatelessWidget {
           final user = authController.user;
           return Row(
             children: [
-              SvgPicture.asset(
-                user.value?.pfp ?? "assets/images/icon/ic_user.svg",
-                height: 40,
-              ),
+              Obx(() => user.value?.pfp == null
+                  ? SvgPicture.asset(
+                      "assets/images/icon/ic_user.svg",
+                      height: 40,
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child:
+                          Image.network("$header/avatar/${user.value?.pfp}"))),
               const SizedBox(
                 width: 10,
               ),

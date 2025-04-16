@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meowdify/core/constants/general.dart';
 import 'package:meowdify/core/utilities/general.dart';
 import 'package:meowdify/features/settings/presentation/controller/controller_account.dart';
 import 'package:meowdify/features/user/presentation/pages/page_login.dart';
@@ -23,21 +24,53 @@ class AccountManagement extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: Obx(() {
-                        return controller.user.value.pfp != null
-                            ? Image.network(
-                                controller.user.value.pfp ?? "",
-                                height: 88,
-                                width: 88,
-                                fit: BoxFit.cover,
-                              )
-                            : const MeoShimmer(
-                                hight: 88,
-                                width: 88,
-                              );
-                      })),
+                  MouseRegion(
+                    onEnter: (_) => controller.mouseEnter(),
+                    onExit: (_) => controller.mouseExit(),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: Obx(() {
+                              return controller.user.value.pfp != null
+                                  ? Image.network(
+                                      "$header/avatar/${controller.user.value.pfp}", // controller.user.value.pfp" ?? "",
+                                      height: 88,
+                                      width: 88,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : const MeoShimmer(
+                                      hight: 88,
+                                      width: 88,
+                                    );
+                            })),
+                        Obx(() => GestureDetector(
+                              onTap: () {
+                                controller.uploadPfp();
+                              },
+                              child: AnimatedOpacity(
+                                opacity:
+                                    controller.isHovering.value ? 1.0 : 0.0,
+                                duration: const Duration(milliseconds: 200),
+                                child: Container(
+                                  width: 88,
+                                  height: 88,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(0.4),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: const Icon(
+                                    Icons.edit,
+                                    color: Colors.white,
+                                    size: 28,
+                                  ),
+                                ),
+                              ),
+                            )),
+                      ],
+                    ),
+                  ),
                   const SizedBox(
                     width: 10,
                   ),
@@ -101,12 +134,12 @@ Widget _passwordChangDialog() {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
+          const Text(
             'Change Password',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 20),
-          TextField(
+          const TextField(
             decoration: InputDecoration(
               labelText: 'Old Password',
               border: OutlineInputBorder(),
@@ -114,7 +147,7 @@ Widget _passwordChangDialog() {
             obscureText: true,
           ),
           const SizedBox(height: 10),
-          TextField(
+          const TextField(
             decoration: InputDecoration(
               labelText: 'New Password',
               border: OutlineInputBorder(),
@@ -154,19 +187,19 @@ Widget _editDialog() {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
+          const Text(
             'Edit Account',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 20),
-          TextField(
+          const TextField(
             decoration: InputDecoration(
               labelText: 'Username',
               border: OutlineInputBorder(),
             ),
           ),
           const SizedBox(height: 10),
-          TextField(
+          const TextField(
             decoration: InputDecoration(
               labelText: 'Email',
               border: OutlineInputBorder(),
@@ -180,13 +213,13 @@ Widget _editDialog() {
                 onPressed: () {
                   // Handle cancel action
                 },
-                child: Text('Cancel'),
+                child: const Text('Cancel'),
               ),
               ElevatedButton(
                 onPressed: () {
                   // Handle edit action
                 },
-                child: Text('Edit'),
+                child: const Text('Edit'),
               ),
             ],
           ),

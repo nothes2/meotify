@@ -34,7 +34,7 @@ class ProfilePage extends StatelessWidget {
               ? ClipRRect(
                   borderRadius: BorderRadius.circular(100),
                   child: Image.network(
-                      "$header/pfp/${controller.user.value.pfp}",
+                      "$header/avatar/${controller.user.value.pfp}",
                       height: 128,
                       width: 128,
                       fit: BoxFit.cover))
