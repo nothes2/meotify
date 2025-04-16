@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:meowdify/core/routes/routes.dart';
 import 'package:meowdify/core/utilities/navigator_key.dart';
 import 'package:meowdify/core/widgets/general.dart';
-import 'package:meowdify/features/music_creator/presentation/widget/music/music_management.dart';
-import 'package:meowdify/features/music_creator/presentation/widget/music/music_upload.dart';
-import 'package:meowdify/features/music_creator/presentation/widget/overview.dart';
 import 'package:meowdify/features/settings/presentation/widgets/accounts.dart';
 
 class Settings extends StatelessWidget {
@@ -66,6 +63,8 @@ class CreatorContent extends StatelessWidget {
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case AppRoutes.accountManagement:
+            return MaterialPageRoute(builder: (_) => const AccountManagement());
+          default:
             return MaterialPageRoute(builder: (_) => const AccountManagement());
         }
       },

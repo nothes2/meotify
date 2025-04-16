@@ -27,5 +27,6 @@ const Map<String, String> zhCN = {
   "File upload filed!": "文件上传失败",
   "File upload timeout!": "文件上传超时！",
   "Cannot find data": "无法找到数据",
-  "Music Management": "音乐管理"
+  "Music Management": "音乐管理",
+  "logout successful": "退出成功！",
 };

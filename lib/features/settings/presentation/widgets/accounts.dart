@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:meowdify/features/user/presentation/controller/controller_login.dart';
+import 'package:meowdify/core/utilities/general.dart';
+import 'package:meowdify/features/settings/presentation/controller/controller_account.dart';
+import 'package:meowdify/features/user/presentation/pages/page_login.dart';
 
 class AccountManagement extends StatelessWidget {
   const AccountManagement({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(AccountController());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -15,7 +17,7 @@ class AccountManagement extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Theme.of(context).colorScheme.surface),
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -23,26 +25,35 @@ class AccountManagement extends StatelessWidget {
                 children: [
                   ClipRRect(
                       borderRadius: BorderRadius.circular(100),
-                      child: Image.network(
-                        "https://images.pexels.com/photos/30800337/pexels-photo-30800337/free-photo-of-playful-border-collie-enjoying-snowy-winter-day.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-                        height: 88,
-                        width: 88,
-                        fit: BoxFit.cover,
-                      )),
+                      child: Obx(() {
+                        return controller.user.value.pfp != null
+                            ? Image.network(
+                                controller.user.value.pfp ?? "",
+                                height: 88,
+                                width: 88,
+                                fit: BoxFit.cover,
+                              )
+                            : const MeoShimmer(
+                                hight: 88,
+                                width: 88,
+                              );
+                      })),
                   const SizedBox(
                     width: 10,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "data",
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                      Text("nothes@gmail.com")
-                    ],
-                  ),
+                  Obx(() {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          controller.user.value.username ?? "username",
+                          style: const TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
+                        Text(controller.user.value.email ?? "email"),
+                      ],
+                    );
+                  })
                 ],
               ),
               TextButton(
@@ -59,7 +70,7 @@ class AccountManagement extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             GestureDetector(
-              child: Text("change password"),
+              child: const Text("change password"),
               onTap: () {
                 Get.dialog(_passwordChangDialog());
               },
@@ -68,9 +79,9 @@ class AccountManagement extends StatelessWidget {
               height: 10,
             ),
             GestureDetector(
-              child: Text("sign out"),
+              child: const Text("sign out"),
               onTap: () {
-                Get.dialog(_logoutDialog());
+                Get.dialog(_logoutDialog(controller));
               },
             )
           ],
@@ -83,9 +94,10 @@ class AccountManagement extends StatelessWidget {
 // profile edit dialog
 Widget _passwordChangDialog() {
   return Dialog(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-    child: Padding(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+    child: Container(
       padding: const EdgeInsets.all(20),
+      width: 600,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -117,13 +129,13 @@ Widget _passwordChangDialog() {
                 onPressed: () {
                   // Handle cancel action
                 },
-                child: Text('Cancel'),
+                child: const Text('Cancel'),
               ),
               ElevatedButton(
                 onPressed: () {
                   // Handle change password action
                 },
-                child: Text('Change'),
+                child: const Text('Change'),
               ),
             ],
           ),
@@ -135,8 +147,9 @@ Widget _passwordChangDialog() {
 
 Widget _editDialog() {
   return Dialog(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-    child: Padding(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+    child: Container(
+      width: 600,
       padding: const EdgeInsets.all(20),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -183,20 +196,21 @@ Widget _editDialog() {
   );
 }
 
-Widget _logoutDialog() {
+Widget _logoutDialog(AccountController controller) {
   return Dialog(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-    child: Padding(
+    child: Container(
+      width: 400,
       padding: const EdgeInsets.all(20),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            'Confirm Logout?',
+          const Text(
+            'Confirm Logout',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 20),
-          Text(
+          const Text(
             'Are you sure you want to logout?',
             style: TextStyle(fontSize: 16),
           ),
@@ -205,12 +219,19 @@ Widget _logoutDialog() {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                onPressed: () {},
-                child: Text('Cancel'),
+                onPressed: () {
+                  Get.back();
+                },
+                child: const Text('Cancel'),
               ),
               ElevatedButton(
-                onPressed: () {},
-                child: Text('Logout'),
+                onPressed: () {
+                  Get.back();
+                  controller.logout();
+
+                  Get.dialog(const LoginFrame());
+                },
+                child: const Text('Logout'),
               ),
             ],
           ),

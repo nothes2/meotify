@@ -28,5 +28,6 @@ const Map<String, String> enUS = {
   "No file selected": "No file selected",
   "File upload filed!": "File upload filed!",
   "File upload timeout!": "File upload timeout!",
-  "Cannot find data": "Cannot find data"
+  "Cannot find data": "Cannot find data",
+  "logout successful": "logout successful!",
 };

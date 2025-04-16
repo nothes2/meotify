@@ -73,11 +73,11 @@ class LoginController extends GetxController {
       return false;
     }
 
-    final stroage = Get.find<SecureStorageRepositoryImpl>();
+    final storage = Get.find<SecureStorageRepositoryImpl>();
 
-    stroage.saveData("jwt_token", token);
+    storage.saveData("jwt_token", token);
     Map<String, dynamic> userData = response.body['data']['user'];
-    await stroage.saveData("user", jsonEncode(userData));
+    await storage.saveData("user", jsonEncode(userData));
     Get.back();
     Get.snackbar("Login Successful!", "Welcome to meotify!",
         backgroundColor: Colors.green, colorText: Colors.white);
