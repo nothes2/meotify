@@ -100,7 +100,7 @@ class ProfilePage extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               Text(
-                "Recent Mix",
+                "Recent Tracks",
                 textAlign: TextAlign.left,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
               ),

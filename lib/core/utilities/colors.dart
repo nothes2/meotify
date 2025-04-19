@@ -23,3 +23,37 @@ class AppColors {
   static const Color darkSecondaryAccent = Color(0xFFDB6885);
   static const Color pureDark = Colors.black87;
 }
+
+// class AppColors {
+//   // Light Theme Colors
+//   static const Color lightPrimaryText =
+//       Color(0xFF37517E); // Soft Navy Blue for readability
+//   static const Color lightSecondaryText =
+//       Color(0xFF6A8BAE); // Muted Blue-Gray for subtext
+//   static const Color lightPrimaryAccent =
+//       Color(0xFFAEDFF7); // Light Sky Blue Accent
+//   static const Color lightSecondaryAccent = Color(0xFFD6F0FA); // Soft Blue Tint
+//   static const Color lightBackground =
+//       Color(0xFFCDE7F6); // Bright pastel background
+//   static const Color lightSurface =
+//       Color(0xFFF5FBFF); // Slightly deeper surface layer
+//   static const Color lightBluePrimary =
+//       Color(0xFF8ECDF7); // Light Blue for UI highlights
+//   static const Color lightBlueSecondary =
+//       Color(0xFFCCE9FB); // Softer secondary highlight
+//   static const Color pure = Colors.white;
+
+//   // Dark Theme Colors
+//   static const Color darkPrimaryAccent = Color(0xFF5BA9D5); // Calm Blue Accent
+//   static const Color darkBackground = Color(0xFF1F2C3B); // Deep Navy
+//   static const Color darkSurface =
+//       Color(0xFF2E3E50); // Slightly lighter than background
+//   static const Color darkPrimaryText =
+//       Color(0xFFE4F3FA); // Off-white blue-tinted text
+//   static const Color darkSecondaryText = Color(0xFFB0CDE0); // Muted light blue
+//   static const Color darkBluePrimary = Color(0xFF7CB8E8); // Light Blue Buttons
+//   static const Color darkBlueSecondary =
+//       Color(0xFFA4D6F4); // Blue Tint for highlights
+//   static const Color darkSecondaryAccent = Color(0xFF84C5EC); // Soft Accent
+//   static const Color pureDark = Colors.black87;
+// }

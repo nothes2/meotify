@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meowdify/core/utilities/colors.dart';
 import 'package:meowdify/features/user/presentation/controller/controller_login.dart';
 import 'package:meowdify/features/user/presentation/pages/page_register.dart';
 import 'package:meowdify/core/themes/default.dart';
@@ -29,7 +30,11 @@ class MeotifyLoginButtonGroup extends StatelessWidget {
                               ?.copyWith(inherit: true),
                           minimumSize: const Size(335, 40),
                         ),
-                  child: Text('SIGN IN'.tr),
+                  child: Text('SIGN IN'.tr,
+                      style: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.pure
+                              : AppColors.pureDark)),
                 ))),
         const SizedBox(height: 10),
         SizedBox(

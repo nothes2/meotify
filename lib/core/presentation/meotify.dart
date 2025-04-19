@@ -41,7 +41,7 @@ class Meotify extends StatelessWidget {
       translations: MeoTranslations(),
       initialRoute: AppRoutes.index,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       home: Stack(
         children: [

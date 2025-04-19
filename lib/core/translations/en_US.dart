@@ -2,9 +2,13 @@
 
 const Map<String, String> enUS = {
   'SIGN IN': "SIGN IN",
+  'SIGN UP': "SIGN UP",
+  "Back To Login": "Back To Login",
+  'username': "username",
+  "Confirm Password": "Confirm Password",
   'Email Address': "Email Address",
   'Password': "Password",
-  'Register By Email': "Register By Email",
+  'Register by Email': "Register By Email",
   'Guest': "Guest",
   "Dashboard": "Dashboard",
   "Overview": "Overview",

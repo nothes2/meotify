@@ -26,7 +26,7 @@ class RegInputFields extends StatelessWidget {
                 width: 335,
                 child: Obx(() => SingleInput(
                       keyboardType: TextInputType.text,
-                      label: "Username".tr,
+                      label: "username".tr,
                       prefixIcon: Icons.supervised_user_circle,
                       controller: controller.usernameController,
                       onValueChanged: controller.onValueChanged,

@@ -1,8 +1,12 @@
 const Map<String, String> zhCN = {
   'SIGN IN': "登 录",
+  'username': "用户名",
+  "Confirm Password": "确认密码",
+  'SIGN UP': "注 册",
+  "Back To Login": "返回登录",
   'Email Address': "邮箱地址",
   'Password': "密码",
-  'Register By Email': "用邮箱注册",
+  'Register by Email': "用邮箱注册",
   'Guest': "游客",
   'Dashboard': "控制面板",
   'Overview': "总览",
